@@ -107,7 +107,7 @@ GameObject:
   - 114: {fileID: 114000013939201126}
   - 114: {fileID: 114000012253474954}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: Anclaje Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,7 +317,7 @@ GameObject:
   - 114: {fileID: 114000012189896774}
   - 114: {fileID: 114000014054225364}
   m_Layer: 5
-  m_Name: Panel (2)
+  m_Name: Herramientas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,7 +505,7 @@ GameObject:
   - 114: {fileID: 114000012197084436}
   - 114: {fileID: 114000013040592272}
   m_Layer: 5
-  m_Name: Panel (2)
+  m_Name: Anclaje Rotar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,6 +590,7 @@ GameObject:
   - 223: {fileID: 223000013945857428}
   - 114: {fileID: 114000013297202122}
   - 114: {fileID: 114000010595897314}
+  - 114: {fileID: 114000012459456996}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1000,7 +1001,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000013941921792}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000012459456996}
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000011026924684
@@ -1122,7 +1134,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000012871362502}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000012459456996}
+        m_MethodName: Rotate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000011420488916
@@ -1250,7 +1273,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000011791882994}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000012459456996}
+        m_MethodName: Scale
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000012189896774
@@ -1360,6 +1394,34 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Option A
+--- !u!114 &114000012459456996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013391969502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22cd4753230ed241b975ff0030388a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {fileID: 114000010989417184}
+  rotate: {fileID: 114000011231954618}
+  scale: {fileID: 114000011977131600}
+  active:
+    m_NormalColor: {r: 0.8745099, g: 0.6431373, b: 0.14901961, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.7490196, b: 0.20784315, a: 1}
+    m_PressedColor: {r: 0.6901961, g: 0.47450984, b: 0.011764707, a: 1}
+    m_DisabledColor: {r: 0.6901961, g: 0.47450984, b: 0.011764707, a: 0.553}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  normal:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+    m_PressedColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 1}
+    m_DisabledColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 0.547}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
 --- !u!114 &114000012494272724
 MonoBehaviour:
   m_ObjectHideFlags: 1
