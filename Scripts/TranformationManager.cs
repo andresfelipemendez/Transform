@@ -7,11 +7,12 @@ public class TranformationManager : MonoBehaviour
 	public Button move;
 	public Button rotate;
 	public Button scale;
-	public ColorBlock cb = new ColorBlock ();
+
+	public ColorBlock active = new ColorBlock ();
+	public ColorBlock normal = new ColorBlock ();
+
 	// Use this for initialization
 	void Start () {
-		var cb = new ColorBlock ();
-//		cb.normalColor = 
 	}
 	
 	// Update is called once per frame
@@ -21,6 +22,22 @@ public class TranformationManager : MonoBehaviour
 
 	public void Move()
 	{
-		//		rotate.colors = cb;
+		move.colors = active;
+		rotate.colors = normal;
+		scale.colors = normal;
+	}
+
+	public void Rotate()
+	{
+		move.colors = normal;
+		rotate.colors = active;
+		scale.colors = normal;
+	}
+
+	public void Scale()
+	{
+		move.colors = normal;
+		rotate.colors = normal;
+		scale.colors = active;
 	}
 }
