@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoveCoordinator : MonoBehaviour {
-
+public class MoveCoordinator : MonoBehaviour 
+{
 	public GameObject x;
 	public GameObject y;
 	public GameObject z;

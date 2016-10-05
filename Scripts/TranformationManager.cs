@@ -11,16 +11,14 @@ public class TranformationManager : MonoBehaviour
 	public ColorBlock active = new ColorBlock ();
 	public ColorBlock normal = new ColorBlock ();
 
-	// Use this for initialization
+	Rotate rotateComponent;
+	Move moveComponent;
+
 	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		rotateComponent = GetComponent<Rotate> ();
 	}
 
-	public void Move()
+	public void SetMoveMode()
 	{
 		move.colors = active;
 		rotate.colors = normal;
@@ -40,4 +38,5 @@ public class TranformationManager : MonoBehaviour
 		rotate.colors = normal;
 		scale.colors = active;
 	}
+
 }

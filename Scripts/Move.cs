@@ -1,22 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Move : MonoBehaviour 
-{
+public class Move : MonoBehaviour {
+	GameObject empty;
+
+	TranformationManager manager;
 	public GameObject moveGizmo;
-	// Use this for initialization
+	GameObject _moveGizmo;
+	GameObject _target;
+
+	public enum State
+	{
+		SET_TARGET
+	};
+
 	void Start () {
-	
+		manager = GetComponent<TranformationManager> ();		
+		_moveGizmo = Instantiate (moveGizmo);
+
+		empty = new GameObject ();
+		_target = empty;
+		_moveGizmo.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
-	}
-
-	void OnMouseDown() {
-		var bx = GetComponent<BoxCollider> ();
-		bx.enabled = false;
-		Instantiate (moveGizmo, transform.position,transform.rotation,transform);
 	}
 }
