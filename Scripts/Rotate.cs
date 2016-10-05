@@ -10,6 +10,7 @@ public class Rotate : MonoBehaviour
 	GameObject rotateGizmo;
 	GameObject axisGizmo;
 	GameObject target;
+	Collider targetCollider = null;
 	Vector3 oldRotation;
 
 	GameObject empty;
@@ -56,21 +57,23 @@ public class Rotate : MonoBehaviour
 				SetRotation (hit);
 				break;
 			}
-		} 
-
-
-
+		}  else {
+			if (Input.GetMouseButtonDown (0))
+				Disable ();
+		}
 	}
 
 	void SetTarget (RaycastHit hit) {
 		if (Input.GetMouseButtonDown (0)) {
 			var name = hit.collider.name;
-			if (name != "x" && name != "y" && name != "z")
+			if (name != "x" && name != "y" && name != "z") {
 				target = hit.collider.gameObject;
+				targetCollider = target.GetComponent <Collider> ();
+			}
 		}
 
 		if (Input.GetMouseButtonUp (0)) {
-			target.GetComponent <Collider> ().enabled = false;
+			targetCollider.enabled = false;
 			oldRotation = target.transform.rotation.eulerAngles;
 			rotateGizmo.SetActive (true);
 			rotateGizmo.transform.position = target.transform.position;
@@ -130,4 +133,10 @@ public class Rotate : MonoBehaviour
 		}
 	}
 
+	public void Disable()
+	{
+		targetCollider.enabled = true;
+		rotateGizmo.SetActive (false);
+		axisGizmo.SetActive (false);
+	}
 }

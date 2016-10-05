@@ -16,23 +16,36 @@ public class TranformationManager : MonoBehaviour
 
 	void Start () {
 		rotateComponent = GetComponent<Rotate> ();
+		moveComponent = GetComponent<Move> ();
+
+		move.colors = active;
+		moveComponent.enabled = true;
+		rotateComponent.enabled = false;
 	}
 
-	public void SetMoveMode()
+	public void MoveMode()
 	{
 		move.colors = active;
 		rotate.colors = normal;
 		scale.colors = normal;
+
+		moveComponent.enabled = true;
+		rotateComponent.enabled = false;
+		rotateComponent.Disable ();
 	}
 
-	public void Rotate()
+	public void RotateMode()
 	{
 		move.colors = normal;
 		rotate.colors = active;
 		scale.colors = normal;
+
+		moveComponent.enabled = false;
+		rotateComponent.enabled = true;
+		moveComponent.Disable ();
 	}
 
-	public void Scale()
+	public void ReplaceMode()
 	{
 		move.colors = normal;
 		rotate.colors = normal;

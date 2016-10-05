@@ -12,7 +12,7 @@ public class MoveCoordinator : MonoBehaviour
 	Transform grandParent;
 	MoveCoordinator coordinator;
 	GameObject axis;
-
+	/*
 	void Update()
 	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -98,5 +98,5 @@ public class MoveCoordinator : MonoBehaviour
 			child.gameObject.SetActive (true);
 		}
 	}
-
+	*/
 }

@@ -282,7 +282,7 @@ GameObject:
   - 114: {fileID: 114000011791882994}
   - 114: {fileID: 114000011977131600}
   m_Layer: 5
-  m_Name: Escalar
+  m_Name: Remplazar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1005,7 +1005,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000012459456996}
-        m_MethodName: Move
+        m_MethodName: MoveMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1138,7 +1138,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000012459456996}
-        m_MethodName: Rotate
+        m_MethodName: RotateMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1277,7 +1277,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000012459456996}
-        m_MethodName: Scale
+        m_MethodName: ReplaceMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1379,7 +1379,6 @@ MonoBehaviour:
   generalRotationGizmo: {fileID: 1000013161215422, guid: b67ed9c2d9ee041b4ab02b7cb897d6f3,
     type: 2}
   axis: 
-  _state: 0
   direction: {x: 0, y: 0, z: 0}
   rotationDirection: {x: 0, y: 0, z: 0}
   newRotation: {x: 0, y: 0, z: 0}
@@ -1563,7 +1562,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Escalar
+  m_Text: Remplazar
 --- !u!114 &114000012686777256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1833,6 +1832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebde3f421a9940299f2d44a65bbe368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveGizmo: {fileID: 1000010011445240, guid: 6d2eac6aa77e579478cae39d603b88d8, type: 2}
 --- !u!114 &114000013297202122
 MonoBehaviour:
   m_ObjectHideFlags: 1
