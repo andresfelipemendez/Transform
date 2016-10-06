@@ -149,23 +149,24 @@ public class Move : MonoBehaviour {
 	{
 		var axisName = hit.collider.name;
 		var gp = _target.transform.localPosition;
-				var hp = hit.point;
-				var pos = gp;
+		var hp = hit.point - _moveGizmo.transform.position;
+//		var g = _moveGizmo.transform.position;
+		var pos = gp;
 
-				switch (axisName) {
-				case "x":
-					pos = new Vector3 (hp.x, gp.y, gp.z);
-					break;
-				case "y":
-					pos = new Vector3 (gp.x, hp.y, gp.z);
-					break;
-				case "z":
-					pos = new Vector3 (gp.x, gp.y, hp.z);
-					break;
-				}
+		switch (axisName) {
+		case "x":
+			pos = new Vector3 (hp.x, gp.y, gp.z);
+			break;
+		case "y":
+			pos = new Vector3 (gp.x, hp.y, gp.z);
+			break;
+		case "z":
+			pos = new Vector3 (gp.x, gp.y, hp.z);
+			break;
+		}
 
 		_moveGizmo.transform.position = pos;
-		_target.transform.position = pos;
+		_target.transform.position = _moveGizmo.transform.position;
 	}
 
 	void RepositionPlane (RaycastHit hit)
