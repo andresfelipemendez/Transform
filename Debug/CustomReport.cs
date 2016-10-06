@@ -10,7 +10,6 @@ public class CustomReport : MonoBehaviour
 	public Material noLimit;
 	public Material topLimit;
 
-	// Use this for initialization
 	void Start () {
 		var report = new ModulationReport();
 

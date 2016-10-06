@@ -203,7 +203,9 @@ public class Move : MonoBehaviour {
 
 	public void Disable ()
 	{
-		_targetCollider.enabled = true;
+		if(_targetCollider != null)
+			_targetCollider.enabled = true;
+
 		_moveGizmo.SetActive (false);
 		_state = State.SET_TARGET;
 	}
