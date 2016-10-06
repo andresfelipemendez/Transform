@@ -100,7 +100,10 @@ public class Rotate : MonoBehaviour
 				rotationDirection = Vector3.back;
 				break;
 			default:
-				direction = new Vector3 ();
+				Disable ();
+				SetTarget (hit);
+				_state = State.SET_TARGET;
+				return;
 				break;
 			}
 		}

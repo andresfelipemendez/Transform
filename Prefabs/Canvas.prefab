@@ -1833,6 +1833,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveGizmo: {fileID: 1000010011445240, guid: 6d2eac6aa77e579478cae39d603b88d8, type: 2}
+  original: {fileID: 0}
+  highlight: {fileID: 2100000, guid: af97147414cee4c8f8ce0006f4644c5a, type: 2}
+  selected: {fileID: 2100000, guid: 34cf1d6b8c71c4d3aba90b41af9ad766, type: 2}
 --- !u!114 &114000013297202122
 MonoBehaviour:
   m_ObjectHideFlags: 1

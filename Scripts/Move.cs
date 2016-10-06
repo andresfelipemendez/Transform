@@ -15,6 +15,14 @@ public class Move : MonoBehaviour {
 	Collider _axisCollider;
 	Collider _axisPlane;
 
+
+	bool setHighlightMaterial = false;
+	bool isTargetSelected = false;
+	MeshRenderer _renderer;
+	public Material original;
+	public Material highlight;
+	public Material selected;
+
 	public enum State
 	{
 		SET_TARGET,
@@ -31,12 +39,20 @@ public class Move : MonoBehaviour {
 		_moveGizmo.SetActive (false);
 	}
 
-	void Update () {
+	void Update ()
+	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 
 		if (Physics.Raycast (ray, out hit, 100)) {
 			Debug.DrawLine (ray.origin, hit.point);
+
+			if (!setHighlightMaterial && !isTargetSelected) {
+				_renderer = hit.transform.gameObject.GetComponent<MeshRenderer> ();
+				original = _renderer.material;
+				_renderer.material = highlight;
+				setHighlightMaterial = true;
+			}
 
 			switch (_state) {
 			case State.SET_TARGET:
@@ -52,7 +68,25 @@ public class Move : MonoBehaviour {
 		} else {
 			if (Input.GetMouseButtonDown (0))
 				Disable ();
+
+			if (setHighlightMaterial && !isTargetSelected) {
+				_renderer.material = original;
+				setHighlightMaterial = false;
+			}else{
+				
+			}
 		}
+	}
+
+	void NewTarget (RaycastHit hit)
+	{
+		_targetCollider.enabled = true;
+		_target = hit.collider.gameObject;
+		_targetCollider = _target.GetComponent <Collider> ();
+		_moveGizmo.SetActive (true);
+		_moveGizmo.transform.position = _target.transform.position;
+		_state = State.SET_AXIS;
+		
 	}
 
 	void SetTarget (RaycastHit hit)
@@ -62,6 +96,8 @@ public class Move : MonoBehaviour {
 			if (name != "x" && name != "y" && name != "z"){
 				_target = hit.collider.gameObject;
 				_targetCollider = _target.GetComponent <Collider> ();
+				_renderer.material = selected;
+				isTargetSelected = true;
 			}
 		}
 
@@ -77,10 +113,8 @@ public class Move : MonoBehaviour {
 	{
 		var axisName = hit.collider.name;
 		if (Input.GetMouseButtonDown (0)) {
-			Debug.Log (axisName);
-			if (IsNewTarget (axisName)){
-				Disable ();
-				SetTarget (hit);
+			if (IsNewTarget (axisName)) {
+				NewTarget (hit);
 				_state = State.SET_TARGET;
 				return;
 			}
@@ -169,9 +203,7 @@ public class Move : MonoBehaviour {
 
 	public void Disable ()
 	{
-		if(_targetCollider!= null)
-			_targetCollider.enabled = true;
-
+		_targetCollider.enabled = true;
 		_moveGizmo.SetActive (false);
 		_state = State.SET_TARGET;
 	}
