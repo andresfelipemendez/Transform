@@ -3,6 +3,5 @@ using System.Collections;
 
 public interface Command 
 {
-	void Start ();
-	void Update ();
+	void Execute (RaycastHit hit);
 }

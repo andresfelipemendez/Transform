@@ -644,7 +644,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22cd4753230ed241b975ff0030388a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateGizmo: {fileID: 1000013161215422, guid: b67ed9c2d9ee041b4ab02b7cb897d6f3,
+    type: 2}
+  MoveGizmo: {fileID: 1000010011445240, guid: 6d2eac6aa77e579478cae39d603b88d8, type: 2}
+  Target: {fileID: 0}
   state: 0
+  selectedMaterial: {fileID: 2100000, guid: 34cf1d6b8c71c4d3aba90b41af9ad766, type: 2}
 --- !u!4 &990830234
 Transform:
   m_ObjectHideFlags: 0
