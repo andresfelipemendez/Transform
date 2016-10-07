@@ -1,55 +1,74 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class TranformationManager : MonoBehaviour 
 {
-	public Button move;
-	public Button rotate;
-	public Button scale;
+	
+	ModulationEditionTool moveTool = new MoveTool();
+	ModulationEditionTool rotateTool  = new RotationTool();
+	ModulationEditionTool activeTool;
 
-	public ColorBlock active = new ColorBlock ();
-	public ColorBlock normal = new ColorBlock ();
+	public GameObject RotateGizmo;
+	public GameObject MoveGizmo;
+	public GameObject Target = null;
+	public State state;
 
-	Rotate rotateComponent;
-	Move moveComponent;
+	public Material selectedMaterial;
+
+	Command _setTarget;
+
+	public enum State {
+		SET_TARGET,
+		SET_TRANSFORMATION,
+	};
 
 	void Start () {
-		rotateComponent = GetComponent<Rotate> ();
-		moveComponent = GetComponent<Move> ();
-
-		move.colors = active;
-		moveComponent.enabled = true;
-		rotateComponent.enabled = false;
+		activeTool = moveTool;
+		_setTarget = new SetTargetCommand (this, selectedMaterial);
 	}
 
 	public void MoveMode()
 	{
-		move.colors = active;
-		rotate.colors = normal;
-		scale.colors = normal;
-
-		moveComponent.enabled = true;
-		rotateComponent.enabled = false;
-		rotateComponent.Disable ();
+		activeTool = moveTool;
 	}
 
 	public void RotateMode()
 	{
-		move.colors = normal;
-		rotate.colors = active;
-		scale.colors = normal;
-
-		moveComponent.enabled = false;
-		rotateComponent.enabled = true;
-		moveComponent.Disable ();
+		activeTool = rotateTool;
 	}
 
-	public void ReplaceMode()
+	void Update ()
 	{
-		move.colors = normal;
-		rotate.colors = normal;
-		scale.colors = active;
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+
+		if (Physics.Raycast (ray, out hit, 100)) 
+		{
+			Command command = HandleInput ();
+			if(command != null)
+				command.Execute (hit);
+
+		}
+
 	}
+
+	Command HandleInput()
+	{
+		switch(state)
+		{
+		case State.SET_TARGET:
+			if (Input.GetMouseButtonUp (0))
+				return _setTarget;
+			break;
+		case State.SET_TRANSFORMATION:
+			if(Input.GetMouseButtonDown (0)){}
+			if(Input.GetMouseButton (0)){}
+			if(Input.GetMouseButtonUp (0)){}
+			break;
+		}
+		return null;
+	}
+
+
 
 }
