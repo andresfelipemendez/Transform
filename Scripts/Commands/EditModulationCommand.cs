@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface Command 
+public interface EditModulationCommand 
 {
 	void Execute (RaycastHit hit);
 }

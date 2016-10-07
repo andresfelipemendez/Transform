@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetTargetCommand : Command 
+public class SetTargetCommand : EditModulationCommand 
 {
 	TranformationManager _tm;
 	Material _sm;

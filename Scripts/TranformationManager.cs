@@ -15,7 +15,7 @@ public class TranformationManager : MonoBehaviour
 
 	public Material selectedMaterial;
 
-	Command _setTarget;
+	EditModulationCommand _setTarget;
 
 	public enum State {
 		SET_TARGET,
@@ -44,7 +44,7 @@ public class TranformationManager : MonoBehaviour
 
 		if (Physics.Raycast (ray, out hit, 100)) 
 		{
-			Command command = HandleInput ();
+			EditModulationCommand command = HandleInput ();
 			if(command != null)
 				command.Execute (hit);
 
@@ -52,7 +52,7 @@ public class TranformationManager : MonoBehaviour
 
 	}
 
-	Command HandleInput()
+	EditModulationCommand HandleInput()
 	{
 		switch(state)
 		{
