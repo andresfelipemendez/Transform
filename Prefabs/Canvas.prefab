@@ -929,10 +929,8 @@ GameObject:
   - 223: {fileID: 223000013945857428}
   - 114: {fileID: 114000013297202122}
   - 114: {fileID: 114000010595897314}
-  - 114: {fileID: 114000012459456996}
-  - 114: {fileID: 114000012358065204}
-  - 114: {fileID: 114000013275626758}
   - 114: {fileID: 114000013719852486}
+  - 114: {fileID: 114000013783089544}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1666,7 +1664,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000012459456996}
+      - m_Target: {fileID: 0}
         m_MethodName: MoveMode
         m_Mode: 1
         m_Arguments:
@@ -1859,7 +1857,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000012459456996}
+      - m_Target: {fileID: 0}
         m_MethodName: RotateMode
         m_Mode: 1
         m_Arguments:
@@ -2159,7 +2157,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000012459456996}
+      - m_Target: {fileID: 0}
         m_MethodName: ReplaceMode
         m_Mode: 1
         m_Arguments:
@@ -2273,27 +2271,6 @@ MonoBehaviour:
   m_Spacing: 1
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
---- !u!114 &114000012358065204
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013391969502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 350a544efdc554f68babeea345096e39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  completeRotationGizmo: {fileID: 1000012447960386, guid: ee406e213e02d40c893d8895fc703103,
-    type: 2}
-  generalRotationGizmo: {fileID: 1000013161215422, guid: b67ed9c2d9ee041b4ab02b7cb897d6f3,
-    type: 2}
-  axis: 
-  direction: {x: 0, y: 0, z: 0}
-  rotationDirection: {x: 0, y: 0, z: 0}
-  newRotation: {x: 0, y: 0, z: 0}
-  angle: 0
-  dot: 0
 --- !u!114 &114000012381965846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2360,34 +2337,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Option A
---- !u!114 &114000012459456996
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013391969502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22cd4753230ed241b975ff0030388a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  move: {fileID: 114000010989417184}
-  rotate: {fileID: 114000011231954618}
-  scale: {fileID: 114000011977131600}
-  active:
-    m_NormalColor: {r: 0.8745099, g: 0.6431373, b: 0.14901961, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.7490196, b: 0.20784315, a: 1}
-    m_PressedColor: {r: 0.6901961, g: 0.47450984, b: 0.011764707, a: 1}
-    m_DisabledColor: {r: 0.6901961, g: 0.47450984, b: 0.011764707, a: 0.553}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  normal:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
-    m_PressedColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 1}
-    m_DisabledColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 0.547}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
 --- !u!114 &114000012492059382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2997,21 +2946,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000013275626758
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013391969502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ebde3f421a9940299f2d44a65bbe368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveGizmo: {fileID: 1000010011445240, guid: 6d2eac6aa77e579478cae39d603b88d8, type: 2}
-  original: {fileID: 0}
-  highlight: {fileID: 2100000, guid: af97147414cee4c8f8ce0006f4644c5a, type: 2}
-  selected: {fileID: 2100000, guid: 34cf1d6b8c71c4d3aba90b41af9ad766, type: 2}
 --- !u!114 &114000013297202122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3425,6 +3359,34 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000013783089544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013391969502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa0cce32391342118820bc2b0883d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {fileID: 114000010989417184}
+  rotate: {fileID: 114000011231954618}
+  scale: {fileID: 114000011977131600}
+  active:
+    m_NormalColor: {r: 0.7647059, g: 0.4909284, b: 0.028114168, a: 1}
+    m_HighlightedColor: {r: 0.9264706, g: 0.5943718, b: 0.040873684, a: 1}
+    m_PressedColor: {r: 0.52205884, g: 0.33636332, b: 0.02687067, a: 1}
+    m_DisabledColor: {r: 0.52156866, g: 0.3372549, b: 0.027450982, a: 0.584}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  normal:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+    m_PressedColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 1}
+    m_DisabledColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 0.591}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
 --- !u!114 &114000013815379184
 MonoBehaviour:
   m_ObjectHideFlags: 1

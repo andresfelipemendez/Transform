@@ -1,55 +1,78 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class TranformationManager : MonoBehaviour 
 {
-	public Button move;
-	public Button rotate;
-	public Button scale;
+	
+	ModulationEditionTool moveTool = new MoveTool();
+	ModulationEditionTool rotateTool  = new RotationTool();
+	ModulationEditionTool activeTool;
 
-	public ColorBlock active = new ColorBlock ();
-	public ColorBlock normal = new ColorBlock ();
+	public GameObject RotateGizmo;
+	public GameObject MoveGizmo;
 
-	Rotate rotateComponent;
-	Move moveComponent;
+	GameObject _target;
+
+	public State state;
+
+	public enum State {
+		SET_TARGET,
+		SET_TRANSFORMATION,
+	};
 
 	void Start () {
-		rotateComponent = GetComponent<Rotate> ();
-		moveComponent = GetComponent<Move> ();
-
-		move.colors = active;
-		moveComponent.enabled = true;
-		rotateComponent.enabled = false;
+		activeTool = moveTool;
 	}
 
 	public void MoveMode()
 	{
-		move.colors = active;
-		rotate.colors = normal;
-		scale.colors = normal;
-
-		moveComponent.enabled = true;
-		rotateComponent.enabled = false;
-		rotateComponent.Disable ();
+		activeTool = moveTool;
 	}
 
 	public void RotateMode()
 	{
-		move.colors = normal;
-		rotate.colors = active;
-		scale.colors = normal;
-
-		moveComponent.enabled = false;
-		rotateComponent.enabled = true;
-		moveComponent.Disable ();
+		activeTool = rotateTool;
 	}
 
-	public void ReplaceMode()
+	void Update ()
 	{
-		move.colors = normal;
-		rotate.colors = normal;
-		scale.colors = active;
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+
+		if (Physics.Raycast (ray, out hit, 100)) 
+		{
+			switch (state) {
+			case State.SET_TARGET:
+				SetTarget (hit);
+				break;
+			case State.SET_TRANSFORMATION:
+				SetTransformation (hit);
+				break;
+			}
+
+		}
+
+	}
+
+	void ChangeTarget (){}
+
+	void SetTarget(RaycastHit hit)
+	{
+		if(Input.GetMouseButtonDown (0))
+		{
+			
+			activeTool.SetGizmoPosition ();
+		}
+			
+		if(Input.GetMouseButton (0))
+		if(Input.GetMouseButtonUp (0)){}
+	}
+
+	void SetTransformation(RaycastHit hit)
+	{
+		if(Input.GetMouseButtonDown (0)){}
+		if(Input.GetMouseButton (0))
+		if(Input.GetMouseButtonUp (0)){}
 	}
 
 }
