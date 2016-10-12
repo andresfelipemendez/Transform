@@ -7,4 +7,5 @@ public interface ModulationEditionTool
 	GameObject Target { get; set;}
 	EditModulationCommand TurnOnGizmo{ get; }
 	EditModulationCommand SetTransformation{ get; }
+	void UpdateTransformation (GameObject target, RaycastHit hit);
 }

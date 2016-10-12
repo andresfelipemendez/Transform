@@ -27,7 +27,6 @@ public class TranformationManager : MonoBehaviour
 	void Start () {
 		SetGizmos ();
 		_setTarget = new SetTargetCommand (this, selectedMaterial);
-
 	}
 
 	void SetGizmos()
@@ -44,17 +43,18 @@ public class TranformationManager : MonoBehaviour
 
 	public void MoveMode()
 	{
-		if(_command != null) _command.Undo (_activeTool);
+		if(Target != null)
+			_activeTool.TurnOnGizmo.Undo (_activeTool);
 		_activeTool = _moveTool;
-		_inactiveTool = _rotateTool;
-		if(_command != null) _command.Execute (this, _activeTool, _hit);
+		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
 	}
 
 	public void RotateMode()
 	{
-		if(_command != null) _command.Undo (_activeTool);
+		if(Target != null)
+			_activeTool.TurnOnGizmo.Undo (_activeTool);
 		_activeTool = _rotateTool;
-		if(_command != null) _command.Execute (this, _activeTool, _hit);
+		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
 	}
 
 	void Update ()
@@ -85,9 +85,11 @@ public class TranformationManager : MonoBehaviour
 			break;
 
 		case State.SET_TRANSFORMATION:
-			if(Input.GetMouseButtonDown (0)){ command = _setTarget; }
-//			if(Input.GetMouseButton (0)) { SetTransformation }
-			if(Input.GetMouseButtonUp (0)){}
+			if (Input.GetMouseButtonDown (0))
+				command = _setTarget;
+			if (Input.GetMouseButton (0))
+				_activeTool.UpdateTransformation (Target, hit);
+			if(Input.GetMouseButtonUp (0)) {}
 			break;
 		}
 		return command;
