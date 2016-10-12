@@ -85,8 +85,10 @@ public class TranformationManager : MonoBehaviour
 			break;
 
 		case State.SET_TRANSFORMATION:
-			if (Input.GetMouseButtonDown (0))
+			if (Input.GetMouseButtonDown (0)){
+				
 				command = _setTarget;
+			}
 			if (Input.GetMouseButton (0))
 				_activeTool.UpdateTransformation (Target, hit);
 			if(Input.GetMouseButtonUp (0)) {}

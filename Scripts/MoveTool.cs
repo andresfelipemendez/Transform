@@ -16,7 +16,25 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-		Debug.Log ("move " + hit.point);
+		var axisName = hit.collider.name;
+		var gp = target.transform.localPosition;
+		var hp = hit.point;
+		var pos = gp;
+
+		switch (axisName) {
+		case "x":
+			pos = new Vector3 (hp.x, gp.y, gp.z);
+			break;
+		case "y":
+			pos = new Vector3 (gp.x, hp.y, gp.z);
+			break;
+		case "z":
+			pos = new Vector3 (gp.x, gp.y, hp.z);
+			break;
+		}
+
+		Gizmo.transform.position = pos;
+		target.transform.position = Gizmo.transform.position;
 	}
 
 	class TurnOnGizmoCommand : EditModulationCommand
@@ -29,7 +47,6 @@ public class MoveTool : ModulationEditionTool
 		}
 
 		public void Undo(ModulationEditionTool tool) {
-//			if (manager.Target == null) return;
 			tool.Gizmo.SetActive (false);
 		}
 	}
