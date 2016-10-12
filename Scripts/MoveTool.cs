@@ -9,10 +9,27 @@ public class MoveTool : ModulationEditionTool
 	public EditModulationCommand SetTransformation { get { return _st; } }
 	EditModulationCommand _st;
 	EditModulationCommand _tog;
+	Collider _axisCollider;
+	Collider _axisPlane;
 
 	public MoveTool() {
 		_tog = new TurnOnGizmoCommand ();
 		_st = new SetTransformationCommand ();
+	}
+
+	public void DisableInactiveAxis (RaycastHit hit) {
+		foreach(Transform sibling in Gizmo.transform)
+		{
+			if (sibling.name != hit.collider.name)
+				sibling.gameObject.SetActive (false);
+			
+		}
+
+		var axis = hit.transform.gameObject;
+		_axisCollider = axis.GetComponent<CapsuleCollider> ();
+		_axisPlane = axis.GetComponent<BoxCollider> ();
+		_axisCollider.enabled = false;
+		_axisPlane.enabled = true;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
@@ -35,6 +52,14 @@ public class MoveTool : ModulationEditionTool
 
 		Gizmo.transform.position = pos;
 		target.transform.position = Gizmo.transform.position;
+	}
+
+	public void EnableAllAxis () {
+		foreach (Transform sibling in Gizmo.transform)
+			sibling.gameObject.SetActive (true);
+
+		_axisCollider.enabled = true;
+		_axisPlane.enabled = false;
 	}
 
 	class TurnOnGizmoCommand : EditModulationCommand

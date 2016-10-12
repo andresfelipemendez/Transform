@@ -15,9 +15,16 @@ public class RotationTool : ModulationEditionTool
 		_st = new SetTransformationCommand ();
 	}
 
+	public void DisableInactiveAxis (RaycastHit hit) {
+	}
+
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
 		Debug.Log ("rotation " + hit.point);
 	}
+
+	public void EnableAllAxis () {
+	}
+
 
 	class TurnOnGizmoCommand : EditModulationCommand
 	{
