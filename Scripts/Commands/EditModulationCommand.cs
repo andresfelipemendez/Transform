@@ -3,6 +3,6 @@ using System.Collections;
 
 public interface EditModulationCommand 
 {
-	void Execute (ModulationEditionTool activeTool, RaycastHit hit);
-	void Undo ();
+	void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit);
+	void Undo (ModulationEditionTool tool);
 }

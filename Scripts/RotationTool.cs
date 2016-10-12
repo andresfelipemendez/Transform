@@ -5,20 +5,26 @@ public class RotationTool : ModulationEditionTool
 {
 	public GameObject Gizmo { get; set; }
 	public GameObject Target { get; set; }
+	public EditModulationCommand TurnOnGizmo{ get; private set;}
+	public EditModulationCommand SetTransformation{ get; private set;}
 
-	public RotationTool(GameObject gizmo)
+	class TurnOnGizmoCommand : EditModulationCommand
 	{
-		Gizmo = gizmo;
-		Gizmo.SetActive (false);
+		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
+			tool.Gizmo.SetActive (true);
+			var pos = hit.transform.position;
+			tool.Gizmo.transform.position = pos;
+		}
+
+		public void Undo(ModulationEditionTool tool) {
+			tool.Gizmo.SetActive (false);
+		}
 	}
 
-	public void SetAxis(TranformationManager tm, RaycastHit hit)
+	class SetTransformationCommand : EditModulationCommand
 	{
-		var target = hit.collider.gameObject;
-		if(target.name != "x" && target.name != "y" && target.name != "z")
-		{
-			tm.state = TranformationManager.State.SET_TARGET;
-			return;
-		}
+		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {}
+
+		public void Undo(ModulationEditionTool tool) {}
 	}
 }

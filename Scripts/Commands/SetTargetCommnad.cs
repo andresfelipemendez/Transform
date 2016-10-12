@@ -13,18 +13,21 @@ public class SetTargetCommand : EditModulationCommand
 		_tm = tm;
 	}
 
-	public void Execute (ModulationEditionTool activeTool, RaycastHit hit) 
+	public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) 
 	{
-		if (_tm.Target != null)
+		var target = hit.collider.gameObject;
+		if (target.name == "x" || target.name == "y" || target.name == "z")
+			return;
+
+		if (_tm.Target != null) // note this _tm its redundant, and the material can use a setter
 			_tm.Target.GetComponent<MeshRenderer> ().material = _pm;
 
-		var target = hit.collider.gameObject;
 		_pm = target.GetComponent<MeshRenderer> ().material;
 		target.GetComponent<MeshRenderer> ().material = _sm;
 		_tm.Target = target;
 	}
 
-	public void Undo()
+	public void Undo(ModulationEditionTool tool)
 	{
 
 	}

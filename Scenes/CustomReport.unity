@@ -614,9 +614,30 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013783089544, guid: 22d6079c93a1c43baacbb27e898a9220,
+        type: 2}
+      propertyPath: move
+      value: 
+      objectReference: {fileID: 1992937498}
+    - target: {fileID: 114000013783089544, guid: 22d6079c93a1c43baacbb27e898a9220,
+        type: 2}
+      propertyPath: rotate
+      value: 
+      objectReference: {fileID: 771227160}
+    - target: {fileID: 114000013783089544, guid: 22d6079c93a1c43baacbb27e898a9220,
+        type: 2}
+      propertyPath: scale
+      value: 
+      objectReference: {fileID: 1041130248}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22d6079c93a1c43baacbb27e898a9220, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &771227160 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011231954618, guid: 22d6079c93a1c43baacbb27e898a9220,
+    type: 2}
+  m_PrefabInternal: {fileID: 680003187}
+  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &990830232
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,8 +668,6 @@ MonoBehaviour:
   state: 0
   RotateGizmo: {fileID: 1000013161215422, guid: b67ed9c2d9ee041b4ab02b7cb897d6f3,
     type: 2}
-  RotateAxisGizmo: {fileID: 1000012447960386, guid: ee406e213e02d40c893d8895fc703103,
-    type: 2}
   MoveGizmo: {fileID: 1000010011445240, guid: 6d2eac6aa77e579478cae39d603b88d8, type: 2}
   Target: {fileID: 0}
   selectedMaterial: {fileID: 2100000, guid: 34cf1d6b8c71c4d3aba90b41af9ad766, type: 2}
@@ -665,6 +684,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &1041130248 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011977131600, guid: 22d6079c93a1c43baacbb27e898a9220,
+    type: 2}
+  m_PrefabInternal: {fileID: 680003187}
+  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1713423606
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +753,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1992937498 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010989417184, guid: 22d6079c93a1c43baacbb27e898a9220,
+    type: 2}
+  m_PrefabInternal: {fileID: 680003187}
+  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &2047901917
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +820,7 @@ Camera:
   far clip plane: 1000
   field of view: 58
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 0.8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -810,7 +841,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2047901917}
   m_LocalRotation: {x: 0.12059044, y: -0.3794095, z: 0.049950194, w: 0.91597563}
-  m_LocalPosition: {x: 1.59, y: 1.115, z: -1.59}
+  m_LocalPosition: {x: 1.73, y: 1.31, z: -1.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 15, y: -45, z: 0}
   m_Children: []

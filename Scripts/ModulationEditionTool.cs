@@ -4,6 +4,7 @@ using System.Collections;
 public interface ModulationEditionTool 
 {
 	GameObject Gizmo { get; set;}
-//	GameObject Target { get; set;}
-	void SetAxis (TranformationManager tm, RaycastHit hit);
+	GameObject Target { get; set;}
+	EditModulationCommand TurnOnGizmo{ get; }
+	EditModulationCommand SetTransformation{ get; }
 }

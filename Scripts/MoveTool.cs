@@ -4,20 +4,46 @@ using System.Collections;
 public class MoveTool : ModulationEditionTool 
 {
 	public GameObject Gizmo { get; set; }
+	public GameObject Target { get; set;}
 
-	public MoveTool(GameObject gizmo)
-	{
-		Gizmo = gizmo;
-		Gizmo.SetActive (false);
+	EditModulationCommand _st;
+	EditModulationCommand _tog;
+
+	public EditModulationCommand TurnOnGizmo {
+		get {
+			if (_tog == null) _tog = new TurnOnGizmoCommand ();
+			return _tog;
+		}
 	}
 
-	public void SetAxis(TranformationManager tm, RaycastHit hit)
+	public EditModulationCommand SetTransformation {
+		get {
+			if (_st == null) _st = new SetTransformationCommand ();
+			return _st;
+		}
+	}
+
+	class TurnOnGizmoCommand : EditModulationCommand
 	{
-		var target = hit.collider.gameObject;
-		if(target.name != "x" && target.name != "y" && target.name != "z")
+		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
+			tool.Gizmo.SetActive (true);
+			var pos = hit.transform.position;
+			tool.Gizmo.transform.position = pos;
+		}
+
+		public void Undo(ModulationEditionTool tool) {
+			tool.Gizmo.SetActive (false);
+		}
+	}
+
+	class SetTransformationCommand : EditModulationCommand
+	{
+		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) 
 		{
-			tm.state = TranformationManager.State.SET_TARGET;
-			return;
+		}
+
+		public void Undo(ModulationEditionTool tool)
+		{
 		}
 	}
 }

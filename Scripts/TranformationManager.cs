@@ -5,11 +5,11 @@ public class TranformationManager : MonoBehaviour
 {
 	ModulationEditionTool _moveTool;
 	ModulationEditionTool _rotateTool;
+
 	ModulationEditionTool _activeTool;
+	ModulationEditionTool _inactiveTool;
 
 	EditModulationCommand _setTarget;
-	EditModulationCommand _turnOnGizmo;
-
 	EditModulationCommand _command;
 	RaycastHit _hit;
 
@@ -25,43 +25,36 @@ public class TranformationManager : MonoBehaviour
 	};
 
 	void Start () {
-		var moveGizmo = Instantiate (MoveGizmo);
-		var rotateGizmo = Instantiate (RotateGizmo);
-		_moveTool = new MoveTool(moveGizmo);
-		_rotateTool = new RotationTool (rotateGizmo);
-
+		SetGizmos ();
 		_setTarget = new SetTargetCommand (this, selectedMaterial);
-		_turnOnGizmo = new TurnOnGizmoCommand (this);
 
+	}
+
+	void SetGizmos()
+	{
+		_moveTool = new MoveTool();
+		_rotateTool = new RotationTool ();
+		_moveTool.Gizmo = Instantiate (MoveGizmo);
+		_rotateTool.Gizmo = Instantiate (RotateGizmo);
+		_moveTool.Gizmo.SetActive (false);
+		_rotateTool.Gizmo.SetActive (false);
 		_activeTool = _moveTool;
+		_inactiveTool = _rotateTool;
 	}
 
 	public void MoveMode()
 	{
-		Undo ();
+		if(_command != null) _command.Undo (_activeTool);
 		_activeTool = _moveTool;
-		ReDo ();
+		_inactiveTool = _rotateTool;
+		if(_command != null) _command.Execute (this, _activeTool, _hit);
 	}
 
 	public void RotateMode()
 	{
-		Undo ();
+		if(_command != null) _command.Undo (_activeTool);
 		_activeTool = _rotateTool;
-		ReDo ();
-	}
-
-	void Undo ()
-	{
-		if(_command != null) {
-			_command.Undo ();
-		}
-	}
-
-	void ReDo(){
-		if(_command != null) {
-			Debug.Log ("re do");
-			_command.Execute (_activeTool, _hit);
-		}
+		if(_command != null) _command.Execute (this, _activeTool, _hit);
 	}
 
 	void Update ()
@@ -74,13 +67,12 @@ public class TranformationManager : MonoBehaviour
 			var command = HandleInput (hit);
 			if(command != null)
 			{
-				_command = command;
 				_hit = hit;
-				command.Execute (_activeTool, hit);
+				_command = command;
+				command.Execute (this, _activeTool, hit);
 			}
 		}
 	}
-
 
 	EditModulationCommand HandleInput(RaycastHit hit)
 	{
@@ -88,22 +80,13 @@ public class TranformationManager : MonoBehaviour
 		switch(state)
 		{
 		case State.SET_TARGET:
-			if (Input.GetMouseButtonDown (0))
-			{
-				command = _setTarget;
-			}
-
-			if (Input.GetMouseButtonUp (0))
-			{
-				command = _turnOnGizmo;
-			}
+			if (Input.GetMouseButtonDown (0)) command = _setTarget;
+			if (Input.GetMouseButtonUp (0)) command = _activeTool.TurnOnGizmo;
 			break;
-		case State.SET_TRANSFORMATION:
-			if(Input.GetMouseButtonDown (0)){
-				_activeTool.SetAxis (this, hit);
-			}
 
-			if(Input.GetMouseButton (0)){}
+		case State.SET_TRANSFORMATION:
+			if(Input.GetMouseButtonDown (0)){ command = _setTarget; }
+//			if(Input.GetMouseButton (0)) { SetTransformation }
 			if(Input.GetMouseButtonUp (0)){}
 			break;
 		}
