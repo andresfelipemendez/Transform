@@ -152,6 +152,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1001 &510358297
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013426048694, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 93331a4b5a6084016bb55854b1c4bb47, type: 2}
+  m_IsPrefabParent: 0
 --- !u!114 &563886048 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000013783089544, guid: 22d6079c93a1c43baacbb27e898a9220,
@@ -666,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  RotateGizmo: {fileID: 1000013161215422, guid: b67ed9c2d9ee041b4ab02b7cb897d6f3,
+  RotateGizmo: {fileID: 1000013753938566, guid: 93331a4b5a6084016bb55854b1c4bb47,
     type: 2}
   MoveGizmo: {fileID: 1000010011445240, guid: 6d2eac6aa77e579478cae39d603b88d8, type: 2}
   Target: {fileID: 0}

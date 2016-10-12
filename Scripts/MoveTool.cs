@@ -22,7 +22,6 @@ public class MoveTool : ModulationEditionTool
 		{
 			if (sibling.name != hit.collider.name)
 				sibling.gameObject.SetActive (false);
-			
 		}
 
 		var axis = hit.transform.gameObject;
@@ -80,6 +79,7 @@ public class MoveTool : ModulationEditionTool
 	{
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) 
 		{
+			// dedundancy to enable the undo behavior
 		}
 
 		public void Undo(ModulationEditionTool tool)
