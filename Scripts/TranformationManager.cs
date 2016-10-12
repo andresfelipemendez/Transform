@@ -86,8 +86,8 @@ public class TranformationManager : MonoBehaviour
 
 		case State.SET_TRANSFORMATION:
 			if (Input.GetMouseButtonDown (0)){
-				_activeTool.DisableInactiveAxis (hit);
 				command = _setTarget;
+				_activeTool.DisableInactiveAxis (hit);
 			}
 			if (Input.GetMouseButton (0))
 				_activeTool.UpdateTransformation (Target, hit);

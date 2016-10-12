@@ -18,20 +18,25 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	public void DisableInactiveAxis (RaycastHit hit) {
+		var axis = hit.transform.gameObject;
+		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return; // this is ugly, there must be a better way
 		foreach(Transform sibling in Gizmo.transform)
 		{
 			if (sibling.name != hit.collider.name)
 				sibling.gameObject.SetActive (false);
 		}
 
-		var axis = hit.transform.gameObject;
 		_axisCollider = axis.GetComponent<CapsuleCollider> ();
 		_axisPlane = axis.GetComponent<BoxCollider> ();
-		_axisCollider.enabled = false;
-		_axisPlane.enabled = true;
+		if(_axisCollider != null) _axisCollider.enabled = false;
+		if(_axisPlane != null) _axisPlane.enabled = true;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
+		var axis = hit.transform.gameObject;
+
+		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
+
 		var axisName = hit.collider.name;
 		var gp = target.transform.localPosition;
 		var hp = hit.point;
@@ -57,16 +62,18 @@ public class MoveTool : ModulationEditionTool
 		foreach (Transform sibling in Gizmo.transform)
 			sibling.gameObject.SetActive (true);
 
-		_axisCollider.enabled = true;
-		_axisPlane.enabled = false;
+		if(_axisCollider != null) _axisCollider.enabled = true;
+		if(_axisPlane != null) _axisPlane.enabled = false;
 	}
 
 	class TurnOnGizmoCommand : EditModulationCommand
 	{
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
-			if (manager.Target == null) return;
 			tool.Gizmo.SetActive (true);
-			tool.Gizmo.transform.position = manager.Target.transform.position;
+//			if (manager.Target != null) 
+//				tool.Gizmo.transform.position = manager.Target.transform.position;
+//			else
+			tool.Gizmo.transform.position = hit.transform.position;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 		}
 

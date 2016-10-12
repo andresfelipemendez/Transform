@@ -3,20 +3,36 @@ using System.Collections;
 
 public class RotationTool : ModulationEditionTool 
 {
-	public GameObject Gizmo { get; set; }
+	GameObject _gizmo;
+	public GameObject Gizmo { 
+		get { return _gizmo; }
+		set { 
+			_gizmo = value; 
+			foreach(Transform sibling in _gizmo.transform)
+			{
+//				Debug.Log (sibling.name + );
+
+				if (sibling.childCount == 3)
+					allAxis = sibling.gameObject;
+				else
+					singleAxis = sibling.gameObject;
+			}
+		}
+	}
 	public GameObject Target { get; set; }
 	public EditModulationCommand TurnOnGizmo { get { return _tog; } }
 	public EditModulationCommand SetTransformation { get { return _st; } }
-	GameObject allAxis;
-	GameObject singleAxis;
 	EditModulationCommand _st;
 	EditModulationCommand _tog;
+	public GameObject allAxis { get; private set; }
+	public GameObject singleAxis { get; private set; }
 	Vector3 _direction;
 	Vector3 _rotationDirection;
 
 	public RotationTool() {
 		_tog = new TurnOnGizmoCommand ();
 		_st = new SetTransformationCommand ();
+
 	}
 
 	public void DisableInactiveAxis (RaycastHit hit) {
@@ -59,9 +75,14 @@ public class RotationTool : ModulationEditionTool
 	class TurnOnGizmoCommand : EditModulationCommand
 	{
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
-			tool.Gizmo.SetActive (true);
-			var pos = manager.Target.transform.position;
-			tool.Gizmo.transform.position = pos;
+			var rotationTool = tool as RotationTool;
+			rotationTool.Gizmo.SetActive (true);
+			rotationTool.allAxis.SetActive (true);
+			rotationTool.singleAxis.SetActive (false);
+
+			var pos = hit.transform.position;
+			rotationTool.Gizmo.transform.position = pos;
+
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 		}
 
