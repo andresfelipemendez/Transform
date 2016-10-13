@@ -26,6 +26,7 @@ public class RotationTool : ModulationEditionTool
 	public GameObject singleAxis { get; private set; }
 	Vector3 _direction;
 	Vector3 _rotationDirection;
+	Vector3 _originalRotation;
 
 	public RotationTool() {
 		_tog = new TurnOnGizmoCommand ();
@@ -33,7 +34,9 @@ public class RotationTool : ModulationEditionTool
 
 	}
 
-	public void DisableInactiveAxis (RaycastHit hit) {
+	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
+		var axis = hit.transform.gameObject;
+		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
 		var axisName = hit.collider.name;
 		switch (axisName) {
 		case "x":
@@ -52,43 +55,21 @@ public class RotationTool : ModulationEditionTool
 
 		var axisRotation = hit.transform.rotation;
 		var grandpa = hit.transform.parent.parent;
-		GameObject axis;
 
 		allAxis.SetActive (false);
 		singleAxis.SetActive (true);
 		singleAxis.transform.rotation = axisRotation;
-//
-//		foreach(Transform sibling in grandpa)
-//		{
-//			if (sibling.childCount == 3)
-//				sibling.gameObject.SetActive (false);
-//			else {
-//				axis = sibling.gameObject;
-//				axis.SetActive (true);
-//				axis.transform.rotation = axisRotation;
-//			}
-//		}
-
-
-//		rotationTool.allAxis.SetActive (true);
-//		rotationTool.singleAxis.SetActive (false);
-//		rotateGizmo.SetActive (false);
-//		axisGizmo.SetActive (true);
-//		axisGizmo.transform.position = target.transform.position;
+		_originalRotation = target.transform.rotation.eulerAngles;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
 		var angle =  Vector3.Angle ( hit.point , _direction);
 		var dot = Vector3.Dot (singleAxis.transform.right, hit.point);
-		/*if (dot > 0)
-				angle += 180;*/
-
-		target.transform.rotation = Quaternion.AngleAxis (angle, _rotationDirection);
+		target.transform.rotation = Quaternion.Euler (_originalRotation + Quaternion.AngleAxis (angle, _rotationDirection).eulerAngles) ;
 	}
 
 	public void EnableAllAxis () {
-//		targetCollider.enabled = true;
-//		rotateGizmo.SetActive (false);
+
 		allAxis.SetActive (true);
 		singleAxis.SetActive (false);
 	}
@@ -103,10 +84,8 @@ public class RotationTool : ModulationEditionTool
 			rotationTool.Gizmo.SetActive (true);
 			rotationTool.allAxis.SetActive (true);
 			rotationTool.singleAxis.SetActive (false);
-
 			var pos = hit.transform.position;
 			rotationTool.Gizmo.transform.position = pos;
-
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 		}
 

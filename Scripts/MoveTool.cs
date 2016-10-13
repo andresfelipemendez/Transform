@@ -17,7 +17,7 @@ public class MoveTool : ModulationEditionTool
 		_st = new SetTransformationCommand ();
 	}
 
-	public void DisableInactiveAxis (RaycastHit hit) {
+	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
 		var axis = hit.transform.gameObject;
 		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return; // this is ugly, there must be a better way
 		foreach(Transform sibling in Gizmo.transform)

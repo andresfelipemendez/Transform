@@ -8,6 +8,6 @@ public interface ModulationEditionTool
 	EditModulationCommand TurnOnGizmo{ get; }
 	EditModulationCommand SetTransformation{ get; }
 	void UpdateTransformation (GameObject target, RaycastHit hit);
-	void DisableInactiveAxis (RaycastHit hit);
+	void DisableInactiveAxis (GameObject target, RaycastHit hit);
 	void EnableAllAxis ();
 }
