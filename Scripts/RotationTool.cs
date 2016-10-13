@@ -10,8 +10,6 @@ public class RotationTool : ModulationEditionTool
 			_gizmo = value; 
 			foreach(Transform sibling in _gizmo.transform)
 			{
-//				Debug.Log (sibling.name + );
-
 				if (sibling.childCount == 3)
 					allAxis = sibling.gameObject;
 				else
@@ -52,29 +50,55 @@ public class RotationTool : ModulationEditionTool
 			break;
 		}
 
+		var axisRotation = hit.transform.rotation;
+		var grandpa = hit.transform.parent.parent;
+		GameObject axis;
+
+		allAxis.SetActive (false);
+		singleAxis.SetActive (true);
+		singleAxis.transform.rotation = axisRotation;
+//
+//		foreach(Transform sibling in grandpa)
+//		{
+//			if (sibling.childCount == 3)
+//				sibling.gameObject.SetActive (false);
+//			else {
+//				axis = sibling.gameObject;
+//				axis.SetActive (true);
+//				axis.transform.rotation = axisRotation;
+//			}
+//		}
+
+
+//		rotationTool.allAxis.SetActive (true);
+//		rotationTool.singleAxis.SetActive (false);
 //		rotateGizmo.SetActive (false);
 //		axisGizmo.SetActive (true);
 //		axisGizmo.transform.position = target.transform.position;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-//		angle =  Vector3.Angle ( hit.point , direction);
-//			dot = Vector3.Dot (axisGizmo.transform.right, hit.point);
-//			if (dot > 0)
-//				angle += 180;
-//
-//			target.transform.rotation = Quaternion.AngleAxis (angle, rotationDirection);
+		var angle =  Vector3.Angle ( hit.point , _direction);
+		var dot = Vector3.Dot (singleAxis.transform.right, hit.point);
+		/*if (dot > 0)
+				angle += 180;*/
+
+		target.transform.rotation = Quaternion.AngleAxis (angle, _rotationDirection);
 	}
 
 	public void EnableAllAxis () {
 //		targetCollider.enabled = true;
 //		rotateGizmo.SetActive (false);
-//		axisGizmo.SetActive (false);
+		allAxis.SetActive (true);
+		singleAxis.SetActive (false);
 	}
 
 	class TurnOnGizmoCommand : EditModulationCommand
 	{
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
+			if (hit.transform == null)
+				return;
+		// si cambio de gizmo y raycast es null
 			var rotationTool = tool as RotationTool;
 			rotationTool.Gizmo.SetActive (true);
 			rotationTool.allAxis.SetActive (true);
