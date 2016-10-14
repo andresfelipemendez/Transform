@@ -6,7 +6,7 @@ public class ActiveTool : MonoBehaviour
 {
 	public Button move;
 	public Button rotate;
-	public Button scale;
+	public Button insert;
 
 	public ColorBlock active = new ColorBlock ();
 	public ColorBlock normal = new ColorBlock ();
@@ -14,16 +14,25 @@ public class ActiveTool : MonoBehaviour
 	void Start () {
 		move.colors = active;
 	}
+	
+	public void MoveMode ()
+	{
+		move.colors = active;
+		insert.colors = normal;
+		rotate.colors = normal;
+	}
 
 	public void RotateMode ()
 	{
 		move.colors = normal;
 		rotate.colors = active;
+		insert.colors = normal;
 	}
 
-	public void MoveMode ()
+	public void InsertMode()
 	{
-		move.colors = active;
+		move.colors = normal;
 		rotate.colors = normal;
+		insert.colors = active;
 	}
 }

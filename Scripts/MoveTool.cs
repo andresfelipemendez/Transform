@@ -34,7 +34,7 @@ public class MoveTool : ModulationEditionTool
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
 		var axis = hit.transform.gameObject;
-
+		Debug.Log (axis.name);
 		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
 
 		var axisName = hit.collider.name;

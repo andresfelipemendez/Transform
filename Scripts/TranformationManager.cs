@@ -22,6 +22,7 @@ public class TranformationManager : MonoBehaviour
 	public enum State {
 		SET_TARGET,
 		SET_TRANSFORMATION,
+		INSERT_ITEM
 	};
 
 	void Start () {
@@ -55,6 +56,13 @@ public class TranformationManager : MonoBehaviour
 			_activeTool.TurnOnGizmo.Undo (_activeTool);
 		_activeTool = _rotateTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
+	}
+
+	public void InsertMode()
+	{
+		_moveTool.Gizmo.SetActive (false);
+		_rotateTool.Gizmo.SetActive (false);
+		state = State.INSERT_ITEM;
 	}
 
 	void Update ()

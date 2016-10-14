@@ -44,7 +44,7 @@ public class RotationTool : ModulationEditionTool
 			_rotationDirection = Vector3.left;
 			break;
 		case "y":
-			_direction = Vector3.right;
+			_direction = Vector3.forward;
 			_rotationDirection = Vector3.up;
 			break;
 		case "z":
@@ -63,9 +63,16 @@ public class RotationTool : ModulationEditionTool
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-		var angle =  Vector3.Angle ( hit.point , _direction);
+		Vector3 targetDir = hit.point - target.transform.position;
+//		float angle = Vector3.Angle( targetDir, transform.forward );
+//		var angle =  Vector3.Angle ( targetDir , _direction);
 		var dot = Vector3.Dot (singleAxis.transform.right, hit.point);
+//		target.transform.rotation = Quaternion.AngleAxis (angle, _rotationDirection);
+
+		var angle = Quaternion.FromToRotation (Vector3.up, hit.point - target.transform.position).eulerAngles.z;
+
 		target.transform.rotation = Quaternion.Euler (_originalRotation + Quaternion.AngleAxis (angle, _rotationDirection).eulerAngles) ;
+//		target.transform.rotation = Quaternion.FromToRotation(_rotationDirection, targetDir);
 	}
 
 	public void EnableAllAxis () {
@@ -79,13 +86,16 @@ public class RotationTool : ModulationEditionTool
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
 			if (hit.transform == null)
 				return;
+
 		// si cambio de gizmo y raycast es null
 			var rotationTool = tool as RotationTool;
 			rotationTool.Gizmo.SetActive (true);
 			rotationTool.allAxis.SetActive (true);
 			rotationTool.singleAxis.SetActive (false);
-			var pos = hit.transform.position;
-			rotationTool.Gizmo.transform.position = pos;
+
+			rotationTool.Gizmo.transform.position = manager.Target.transform.position;
+//			var pos = hit.transform.position;
+//			rotationTool.Gizmo.transform.position = pos;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 		}
 
