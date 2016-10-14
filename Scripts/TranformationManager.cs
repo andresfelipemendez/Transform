@@ -52,8 +52,8 @@ public class TranformationManager : MonoBehaviour
 
 	public void RotateMode()
 	{
-		if(Target != null)
-			_activeTool.TurnOnGizmo.Undo (_activeTool);
+//		if(Target != null)
+		_activeTool.Gizmo.SetActive (false);
 		_activeTool = _rotateTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
 	}

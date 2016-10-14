@@ -34,7 +34,6 @@ public class MoveTool : ModulationEditionTool
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
 		var axis = hit.transform.gameObject;
-		Debug.Log (axis.name);
 		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
 
 		var axisName = hit.collider.name;
@@ -69,15 +68,14 @@ public class MoveTool : ModulationEditionTool
 	class TurnOnGizmoCommand : EditModulationCommand
 	{
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) {
+			if (hit.transform == null) return;
 			tool.Gizmo.SetActive (true);
-//			if (manager.Target != null) 
-//				tool.Gizmo.transform.position = manager.Target.transform.position;
-//			else
 			tool.Gizmo.transform.position = hit.transform.position;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 		}
 
 		public void Undo(ModulationEditionTool tool) {
+			Debug.Log ("undo?");
 			tool.Gizmo.SetActive (false);
 		}
 	}
