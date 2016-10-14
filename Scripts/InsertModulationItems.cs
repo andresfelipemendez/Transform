@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class InsertModulationItems : MonoBehaviour {
+
+	public TranformationManager tm;
+
 	public GameObject ItemsListPrefab;
 	public GameObject Item;
 	public GameObject content;
@@ -23,6 +26,7 @@ public class InsertModulationItems : MonoBehaviour {
 			button.onClick.AddListener (() => {setFormwork (btn.name);});
 		}
 
+
 	}
 
 	public void setFormwork(string id) {
@@ -35,19 +39,16 @@ public class InsertModulationItems : MonoBehaviour {
 		BuildPanel (panelId);
 	}
 
-	public void Close()
-	{
-
-	}
-	
 	public void BuildPanel(string name)
 	{
 		var panel = TestAllPanels.GetByID(name);
-			float height = panel.height;
-			float width = panel.width;
-			var panelGO = new GameObject(name, typeof(MeshRenderer), typeof(MeshFilter), typeof(BoxCollider), typeof(WallPanelInfo));
-			panelGO.name = name;
-			panelGO.tag = "WallPanel";
+		float height = panel.height;
+		float width = panel.width;
+		var panelGO = new GameObject(name, typeof(MeshRenderer), typeof(MeshFilter), typeof(BoxCollider), typeof(WallPanelInfo));
+		panelGO.name = name;
+		panelGO.tag = "WallPanel";
+		panelGO.transform.position = tm.TargetPosition;
+		panelGO.transform.rotation = tm.TargetRotation;
 			var panelMeshFilter = panelGO.GetComponent<MeshFilter>();
 			var panelMeshRenderer = panelGO.GetComponent<MeshRenderer>();
 			var panelBoxCollider = panelGO.GetComponent<BoxCollider>();
@@ -63,5 +64,6 @@ public class InsertModulationItems : MonoBehaviour {
 			var wallPanelBuilder = new WallPanelBuilder(wallPanel);
 			panelMeshFilter.mesh = wallPanelBuilder.Build();
 			panelMeshRenderer.material = panelMat;
+			tm.SetNewPanelAsTarget (panelGO);
 	}
 }

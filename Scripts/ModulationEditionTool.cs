@@ -10,4 +10,6 @@ public interface ModulationEditionTool
 	void UpdateTransformation (GameObject target, RaycastHit hit);
 	void DisableInactiveAxis (GameObject target, RaycastHit hit);
 	void EnableAllAxis ();
+
+	// function that return instances
 }

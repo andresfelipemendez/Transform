@@ -3,18 +3,21 @@ using System.Collections;
 
 public class TranformationManager : MonoBehaviour 
 {
+	
 	ModulationEditionTool _moveTool;
 	ModulationEditionTool _rotateTool;
 
 	ModulationEditionTool _activeTool;
 	ModulationEditionTool _inactiveTool;
 
-	EditModulationCommand _setTarget;
+	SetTargetCommand _setTarget;
 	EditModulationCommand _deleteModulationItem;
 	EditModulationCommand _command;
 	RaycastHit _hit;
 
 	public State state;
+	public Vector3 TargetPosition;
+	public Quaternion TargetRotation;
 	public GameObject RotateGizmo;
 	public GameObject MoveGizmo;
 	public GameObject Target = null;
@@ -66,6 +69,12 @@ public class TranformationManager : MonoBehaviour
 		state = State.INSERT_ITEM;
 	}
 
+	public void SetNewPanelAsTarget(GameObject newpanel)
+	{
+		_setTarget.Execute (this, _activeTool, newpanel);
+		return;
+	}
+
 	void Update ()
 	{
 		
@@ -95,7 +104,9 @@ public class TranformationManager : MonoBehaviour
 		switch(state)
 		{
 		case State.SET_TARGET:
-			if (Input.GetMouseButtonDown (0)) command = _setTarget;
+			if (Input.GetMouseButtonDown (0)){
+				command = _setTarget;
+			}
 			if (Input.GetMouseButtonUp (0)) command = _activeTool.TurnOnGizmo;
 			break;
 
