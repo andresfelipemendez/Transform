@@ -1429,7 +1429,7 @@ GameObject:
   - 114: {fileID: 114000010711017134}
   - 114: {fileID: 114000011576644672}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: InsertarItems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2638,7 +2638,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000013004624178}
   m_HandleRect: {fileID: 224000013202139054}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2744,7 +2744,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000013073990382}
   m_HandleRect: {fileID: 224000010484673308}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6795,7 +6795,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 196, y: 3}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224000012342306612
@@ -7681,7 +7681,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 195.99997, y: 3}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224000014262103538

@@ -19,7 +19,8 @@ public class MoveTool : ModulationEditionTool
 
 	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
 		var axis = hit.transform.gameObject;
-		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return; // this is ugly, there must be a better way
+		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
+		else {Debug.Log (hit.collider.GetType ().ToString ()); }
 		foreach(Transform sibling in Gizmo.transform)
 		{
 			if (sibling.name != hit.collider.name)
@@ -72,10 +73,13 @@ public class MoveTool : ModulationEditionTool
 			tool.Gizmo.SetActive (true);
 			tool.Gizmo.transform.position = hit.transform.position;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
+
+			// necesito sacar la info del panel para poder generar las zonas activas
+			var comp = hit.transform.gameObject.GetComponent<WallPanelInfo> ();
+//			Debug.Log (comp.height + " " + comp.width);
 		}
 
 		public void Undo(ModulationEditionTool tool) {
-			Debug.Log ("undo?");
 			tool.Gizmo.SetActive (false);
 		}
 	}
@@ -84,7 +88,6 @@ public class MoveTool : ModulationEditionTool
 	{
 		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) 
 		{
-			// dedundancy to enable the undo behavior
 		}
 
 		public void Undo(ModulationEditionTool tool)

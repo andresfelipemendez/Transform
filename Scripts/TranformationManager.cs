@@ -15,7 +15,7 @@ public class TranformationManager : MonoBehaviour
 	RaycastHit _hit;
 
 	public State state;
-	public GameObject RotateGizmo; // the rotate axis needs to be a childn
+	public GameObject RotateGizmo;
 	public GameObject MoveGizmo;
 	public GameObject Target = null;
 	public Material selectedMaterial;
@@ -54,7 +54,6 @@ public class TranformationManager : MonoBehaviour
 
 	public void RotateMode()
 	{
-//		if(Target != null)
 		_activeTool.Gizmo.SetActive (false);
 		_activeTool = _rotateTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
@@ -112,9 +111,6 @@ public class TranformationManager : MonoBehaviour
 			}
 			break;
 		}
-
-
-
 
 		return command;
 	}
