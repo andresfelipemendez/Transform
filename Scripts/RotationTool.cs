@@ -65,7 +65,10 @@ public class RotationTool : ModulationEditionTool
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
 		Vector3 targetDir = hit.point - target.transform.position;
 		var dot = Vector3.Dot (singleAxis.transform.right, hit.point);
-		var angle = Quaternion.FromToRotation (Vector3.up, hit.point - target.transform.position).eulerAngles.z;
+		Debug.Log (_direction + " " + _rotationDirection + " z");
+		var a = Quaternion.FromToRotation (Vector3.up, hit.point - target.transform.position).eulerAngles;
+		a.Scale (_rotationDirection);
+		var angle = a.x + a.y + a.z;
 		target.transform.rotation = Quaternion.Euler (_originalRotation + Quaternion.AngleAxis (angle, _rotationDirection).eulerAngles) ;
 //		target.transform.rotation = Quaternion.FromToRotation(_rotationDirection, targetDir);
 	}
