@@ -25,8 +25,6 @@ public class InsertModulationItems : MonoBehaviour {
 			var button = btn.GetComponent<Button> ();
 			button.onClick.AddListener (() => {setFormwork (btn.name);});
 		}
-
-
 	}
 
 	public void setFormwork(string id) {

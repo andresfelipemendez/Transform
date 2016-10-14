@@ -20,6 +20,7 @@ public class TranformationManager : MonoBehaviour
 	public Quaternion TargetRotation;
 	public GameObject RotateGizmo;
 	public GameObject MoveGizmo;
+	public GameObject PanelInsertItem;
 	public GameObject Target = null;
 	public Material selectedMaterial;
 
@@ -53,6 +54,7 @@ public class TranformationManager : MonoBehaviour
 			_activeTool.TurnOnGizmo.Undo (_activeTool);
 		_activeTool = _moveTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
+		PanelInsertItem.SetActive (false);
 	}
 
 	public void RotateMode()
@@ -60,10 +62,12 @@ public class TranformationManager : MonoBehaviour
 		_activeTool.Gizmo.SetActive (false);
 		_activeTool = _rotateTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
+		PanelInsertItem.SetActive (false);
 	}
 
 	public void InsertMode()
 	{
+		PanelInsertItem.SetActive (true);
 		_moveTool.Gizmo.SetActive (false);
 		_rotateTool.Gizmo.SetActive (false);
 		state = State.INSERT_ITEM;
