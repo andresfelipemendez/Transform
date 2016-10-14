@@ -3196,7 +3196,7 @@ MonoBehaviour:
   tm: {fileID: 114000012776177350}
   ItemsListPrefab: {fileID: 0}
   Item: {fileID: 1000011900141146, guid: 5e4daaf06852e445290e6aacc27a7070, type: 2}
-  content: {fileID: 1000013466094610}
+  content: {fileID: 1000010448644298}
   panelMat: {fileID: 2100000, guid: 9478fc752b13e4080a6ee2d6035716d9, type: 2}
   cornerMat: {fileID: 2100000, guid: 3f70b116d651546838749d6b30440a1c, type: 2}
 --- !u!114 &114000011580266822
@@ -3432,17 +3432,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000013783089544}
-        m_MethodName: InsertMode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 114000012776177350}
         m_MethodName: InsertMode
         m_Mode: 1
@@ -4987,7 +4976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  projections: {fileID: 114000013041559066}
+  projections: {fileID: 0}
 --- !u!114 &114000013729170594
 MonoBehaviour:
   m_ObjectHideFlags: 1
