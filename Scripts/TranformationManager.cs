@@ -10,6 +10,7 @@ public class TranformationManager : MonoBehaviour
 	ModulationEditionTool _inactiveTool;
 
 	EditModulationCommand _setTarget;
+	EditModulationCommand _deleteModulationItem;
 	EditModulationCommand _command;
 	RaycastHit _hit;
 
@@ -28,6 +29,7 @@ public class TranformationManager : MonoBehaviour
 	void Start () {
 		SetGizmos ();
 		_setTarget = new SetTargetCommand (this, selectedMaterial);
+		_deleteModulationItem = new DeleteModulationItem (this);
 	}
 
 	void SetGizmos()
@@ -67,6 +69,7 @@ public class TranformationManager : MonoBehaviour
 
 	void Update ()
 	{
+		
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 
@@ -85,6 +88,11 @@ public class TranformationManager : MonoBehaviour
 	EditModulationCommand HandleInput(RaycastHit hit)
 	{
 		EditModulationCommand command = null;
+
+			if (Input.GetKeyDown (KeyCode.Backspace)) {
+			return _deleteModulationItem;
+			}
+
 		switch(state)
 		{
 		case State.SET_TARGET:
@@ -104,6 +112,30 @@ public class TranformationManager : MonoBehaviour
 			}
 			break;
 		}
+
+
+
+
 		return command;
+	}
+
+	public class DeleteModulationItem : EditModulationCommand {
+
+		TranformationManager _tm;
+		GameObject _target;
+
+		public DeleteModulationItem(TranformationManager tm)
+		{
+			_tm = tm;
+		}
+
+		public void Execute (TranformationManager manager, ModulationEditionTool tool, RaycastHit hit) 
+		{
+			_target = manager.Target;
+			Destroy (manager.Target);
+		}
+
+		public void Undo(ModulationEditionTool tool)
+		{}
 	}
 }
