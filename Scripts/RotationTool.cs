@@ -28,10 +28,11 @@ public class RotationTool : ModulationEditionTool
 	Vector3 _rotationDirection;
 	Vector3 _originalRotation;
 
+	Collider hitCollider;
+
 	public RotationTool() {
 		_tog = new TurnOnGizmoCommand ();
 		_st = new SetTransformationCommand ();
-
 	}
 
 	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
@@ -40,8 +41,8 @@ public class RotationTool : ModulationEditionTool
 		var axisName = hit.collider.name;
 		switch (axisName) {
 		case "x":
-			_direction = Vector3.forward;
-			_rotationDirection = Vector3.left;
+			_direction = Vector3.back;
+			_rotationDirection = Vector3.right;
 			break;
 		case "y":
 			_direction = Vector3.forward;
@@ -60,23 +61,24 @@ public class RotationTool : ModulationEditionTool
 		singleAxis.SetActive (true);
 		singleAxis.transform.rotation = axisRotation;
 		_originalRotation = target.transform.rotation.eulerAngles;
+
+		hitCollider = target.GetComponent<BoxCollider> ();
+		hitCollider.enabled = false;
 	}
 
-	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-		Vector3 targetDir = hit.point - target.transform.position;
-		var dot = Vector3.Dot (singleAxis.transform.right, hit.point);
-		Debug.Log (_direction + " " + _rotationDirection + " z");
-		var a = Quaternion.FromToRotation (Vector3.up, hit.point - target.transform.position).eulerAngles;
-		a.Scale (_rotationDirection);
-		var angle = a.x + a.y + a.z;
-		target.transform.rotation = Quaternion.Euler (_originalRotation + Quaternion.AngleAxis (angle, _rotationDirection).eulerAngles) ;
-//		target.transform.rotation = Quaternion.FromToRotation(_rotationDirection, targetDir);
+	public void UpdateTransformation (GameObject target, RaycastHit hit)
+	{
+		var rotation = Quaternion.FromToRotation (_direction, hit.point - target.transform.position).eulerAngles;
+		rotation.Scale (_rotationDirection);
+		var angle = rotation.x + rotation.y + rotation.z;
+		target.transform.rotation = Quaternion.Euler (_originalRotation + angle * _rotationDirection);
+		return;
 	}
 
 	public void EnableAllAxis () {
-
 		allAxis.SetActive (true);
 		singleAxis.SetActive (false);
+		hitCollider.enabled = true;
 	}
 
 	class TurnOnGizmoCommand : EditModulationCommand

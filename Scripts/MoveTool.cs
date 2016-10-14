@@ -12,6 +12,8 @@ public class MoveTool : ModulationEditionTool
 	Collider _axisCollider;
 	Collider _axisPlane;
 
+	Collider hitCollider;
+
 	public MoveTool() {
 		_tog = new TurnOnGizmoCommand ();
 		_st = new SetTransformationCommand ();
@@ -31,6 +33,9 @@ public class MoveTool : ModulationEditionTool
 		_axisPlane = axis.GetComponent<BoxCollider> ();
 		if(_axisCollider != null) _axisCollider.enabled = false;
 		if(_axisPlane != null) _axisPlane.enabled = true;
+
+		hitCollider = target.GetComponent<BoxCollider> ();
+		hitCollider.enabled = false;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
@@ -64,6 +69,7 @@ public class MoveTool : ModulationEditionTool
 
 		if(_axisCollider != null) _axisCollider.enabled = true;
 		if(_axisPlane != null) _axisPlane.enabled = false;
+		hitCollider.enabled = true;
 	}
 
 	class TurnOnGizmoCommand : EditModulationCommand

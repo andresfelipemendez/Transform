@@ -47,21 +47,21 @@ public class InsertModulationItems : MonoBehaviour {
 		panelGO.tag = "WallPanel";
 		panelGO.transform.position = tm.TargetPosition;
 		panelGO.transform.rotation = tm.TargetRotation;
-			var panelMeshFilter = panelGO.GetComponent<MeshFilter>();
-			var panelMeshRenderer = panelGO.GetComponent<MeshRenderer>();
-			var panelBoxCollider = panelGO.GetComponent<BoxCollider>();
-			panelBoxCollider.center = new Vector3(panel.width / -2.0f, panel.height / 2.0f, 0.025f);
-			panelBoxCollider.size = new Vector3(panel.width, panel.height, 0.05f);
-			var info = panelGO.GetComponent<WallPanelInfo>();
-			info.id = name;
-			info.width = width;
-			info.height = height;
-			var up = new Vector3 (0, 1, 0);
-			var right = new Vector3 (-1, 0, 0);
-			var wallPanel = new WallPanel (Vector3.zero, up, width, height, name);
-			var wallPanelBuilder = new WallPanelBuilder(wallPanel);
-			panelMeshFilter.mesh = wallPanelBuilder.Build();
-			panelMeshRenderer.material = panelMat;
-			tm.SetNewPanelAsTarget (panelGO);
+		var panelMeshFilter = panelGO.GetComponent<MeshFilter>();
+		var panelMeshRenderer = panelGO.GetComponent<MeshRenderer>();
+		var panelBoxCollider = panelGO.GetComponent<BoxCollider>();
+		panelBoxCollider.center = new Vector3(panel.width / -2.0f, panel.height / 2.0f, 0.025f);
+		panelBoxCollider.size = new Vector3(panel.width, panel.height, 0.05f);
+		var info = panelGO.GetComponent<WallPanelInfo>();
+		info.id = name;
+		info.width = width;
+		info.height = height;
+		var up = new Vector3 (0, 1, 0);
+		var right = new Vector3 (-1, 0, 0);
+		var wallPanel = new WallPanel (Vector3.zero, up, width, height, name);
+		var wallPanelBuilder = new WallPanelBuilder(wallPanel);
+		panelMeshFilter.mesh = wallPanelBuilder.Build();
+		panelMeshRenderer.material = panelMat;
+		tm.SetNewPanelAsTarget (panelGO);
 	}
 }
