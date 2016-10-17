@@ -36,12 +36,11 @@ public class RotationTool : ModulationEditionTool
 	}
 
 	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
-		var axis = hit.transform.gameObject;
-		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
 		var axisName = hit.collider.name;
+		if (axisName != "x" && axisName != "y" && axisName != "z") return;
 		switch (axisName) {
 		case "x":
-			_direction = Vector3.back;
+			_direction = Vector3.down;
 			_rotationDirection = Vector3.right;
 			break;
 		case "y":
@@ -55,7 +54,6 @@ public class RotationTool : ModulationEditionTool
 		}
 
 		var axisRotation = hit.transform.rotation;
-		var grandpa = hit.transform.parent.parent;
 
 		allAxis.SetActive (false);
 		singleAxis.SetActive (true);
@@ -87,15 +85,12 @@ public class RotationTool : ModulationEditionTool
 			if (hit.transform == null)
 				return;
 
-		// si cambio de gizmo y raycast es null
 			var rotationTool = tool as RotationTool;
 			rotationTool.Gizmo.SetActive (true);
 			rotationTool.allAxis.SetActive (true);
 			rotationTool.singleAxis.SetActive (false);
 
 			rotationTool.Gizmo.transform.position = manager.Target.transform.position;
-//			var pos = hit.transform.position;
-//			rotationTool.Gizmo.transform.position = pos;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 		}
 
