@@ -1,0 +1,19 @@
+<<<<<<< HEAD:Prefabs/Gizmos/Rotate Single Axis Gizmo.prefab.meta
+fileFormatVersion: 2
+guid: ee406e213e02d40c893d8895fc703103
+timeCreated: 1475607648
+licenseType: Free
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: 1f11b90f68ac34b1da8f64e2fdc53457
+timeCreated: 1476711870
+licenseType: Free
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> 47f7fc3be9faa28b7d51d65a8256a732aa7c730e:Materials/Snap.mat.meta

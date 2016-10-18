@@ -1,0 +1,19 @@
+<<<<<<< HEAD:Prefabs/Gizmos/Rotate Gizmo.prefab.meta
+fileFormatVersion: 2
+guid: b67ed9c2d9ee041b4ab02b7cb897d6f3
+timeCreated: 1475606053
+licenseType: Free
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: 08d5b4519ee50458e8705b483db58d66
+timeCreated: 1476366033
+licenseType: Free
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> 47f7fc3be9faa28b7d51d65a8256a732aa7c730e:Prefabs/TransformationManager.prefab.meta
