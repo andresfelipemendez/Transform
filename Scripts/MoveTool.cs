@@ -11,8 +11,9 @@ public class MoveTool : ModulationEditionTool
 	EditModulationCommand _tog;
 	Collider _axisCollider;
 	Collider _axisPlane;
-
 	Collider hitCollider;
+	Vector3 start;
+	Vector3 startPosition;
 
 	public MoveTool() {
 		_tog = new TurnOnGizmoCommand ();
@@ -20,11 +21,14 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
+		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
+			Snap (target, hit);
+//			Debug.Log ("movetool " + hit.transform.parent.name);
+  
 		var axis = hit.transform.gameObject;
 		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
-		else {Debug.Log (hit.collider.GetType ().ToString ()); }
-		foreach(Transform sibling in Gizmo.transform)
-		{
+
+		foreach(Transform sibling in Gizmo.transform) {
 			if (sibling.name != hit.collider.name)
 				sibling.gameObject.SetActive (false);
 		}
@@ -33,44 +37,68 @@ public class MoveTool : ModulationEditionTool
 		_axisPlane = axis.GetComponent<BoxCollider> ();
 		if(_axisCollider != null) _axisCollider.enabled = false;
 		if(_axisPlane != null) _axisPlane.enabled = true;
-
 		hitCollider = target.GetComponent<BoxCollider> ();
 		hitCollider.enabled = false;
+
+		start = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+		startPosition = target.transform.position;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-		var axis = hit.transform.gameObject;
-		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
-
+		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
+			UpdateSnaps(target, hit);
+		
 		var axisName = hit.collider.name;
-		var gp = target.transform.localPosition;
-		var hp = hit.point;
-		var pos = gp;
+		if (axisName != "x" && axisName != "y" && axisName != "z") return;
+
+		var of =  Camera.main.ScreenToViewportPoint (Input.mousePosition);
+		var o = of.magnitude - start.magnitude;
+		o *= 20;
+		var pos = new Vector3 ();
 
 		switch (axisName) {
-		case "x":
-			pos = new Vector3 (hp.x, gp.y, gp.z);
-			break;
-		case "y":
-			pos = new Vector3 (gp.x, hp.y, gp.z);
-			break;
-		case "z":
-			pos = new Vector3 (gp.x, gp.y, hp.z);
-			break;
+			case "x":
+				pos = startPosition + Vector3.right * o;
+				break;
+			case "y":
+				pos = startPosition + Vector3.up * o;
+				break;
+			case "z":
+				pos = startPosition + Vector3.forward * o;
+				break;
 		}
 
+		target.transform.position = pos;
 		Gizmo.transform.position = pos;
-		target.transform.position = Gizmo.transform.position;
 	}
+
+	void Snap(GameObject target, RaycastHit hit) {
+		Debug.Log (target + " " + hit);
+
+		foreach(Transform sibling in Gizmo.transform) {
+			if(sibling.name != "Snaps")
+				sibling.gameObject.SetActive (false);
+		}
+
+		return;
+	}
+
+	void UpdateSnaps(GameObject target, RaycastHit hit)
+	{
+	 	Debug.DrawLine (startPosition, hit.point);
+	}
+
 
 	public void EnableAllAxis () {
-		foreach (Transform sibling in Gizmo.transform)
+		foreach (Transform sibling in Gizmo.transform) {
 			sibling.gameObject.SetActive (true);
-
+		}
 		if(_axisCollider != null) _axisCollider.enabled = true;
 		if(_axisPlane != null) _axisPlane.enabled = false;
-		hitCollider.enabled = true;
+		if(hitCollider != null)
+			hitCollider.enabled = true;
 	}
+
 
 	class TurnOnGizmoCommand : EditModulationCommand
 	{
@@ -80,9 +108,7 @@ public class MoveTool : ModulationEditionTool
 			tool.Gizmo.transform.position = hit.transform.position;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 
-			// necesito sacar la info del panel para poder generar las zonas activas
 			var comp = hit.transform.gameObject.GetComponent<WallPanelInfo> ();
-//			Debug.Log (comp.height + " " + comp.width);
 		}
 
 		public void Undo(ModulationEditionTool tool) {
