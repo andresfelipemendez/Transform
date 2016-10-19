@@ -7,8 +7,8 @@ public interface ModulationEditionTool
 	GameObject Target { get; set;}
 	EditModulationCommand TurnOnGizmo{ get; }
 	EditModulationCommand SetTransformation{ get; }
-	void UpdateTransformation (GameObject target, RaycastHit hit, Vector2 mousePos);
-	void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos);
+	void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos, Camera viewportCamera);
+	void UpdateTransformation (GameObject target, RaycastHit hit, Vector2 mousePos, Camera viewportCamera);
 	void EnableAllAxis ();
 
 	// function that return instances

@@ -12,9 +12,11 @@ public class MoveTool : ModulationEditionTool
 	Collider _axisCollider;
 	Collider _axisPlane;
 	Collider hitCollider;
-	Vector3 start;
+	Vector2 start;
 	Vector3 startPosition;
 	Vector3 snapEnd;
+	Vector3 offset;
+
 	bool isSnapping;
 
 	public MoveTool() {
@@ -22,8 +24,8 @@ public class MoveTool : ModulationEditionTool
 		_st = new SetTransformationCommand ();
 	}
 
-	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
-		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps"){
+	public void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos,Camera viewportCamera) {
+		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps") {
 			isSnapping = true;
 			Snap (target, hit);
 		}
@@ -43,33 +45,35 @@ public class MoveTool : ModulationEditionTool
 		hitCollider = target.GetComponent<BoxCollider> ();
 		hitCollider.enabled = false;
 
-		start = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+		start = mousePos;
 		startPosition = target.transform.position;
 		Target = target;
+		offset = target.transform.position - viewportCamera.ScreenToWorldPoint (mousePos);
 	}
 
-	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-		if(isSnapping){
+	public void UpdateTransformation(GameObject target, RaycastHit hit, Vector2 mousePos,Camera viewportCamera) {
+
+//		var p = Camera
+		if(isSnapping) {
 			UpdateSnaps(hit);
 			return;
 		}
-		var axisName = hit.collider.name;
-		if (axisName != "x" && axisName != "y" && axisName != "z") return;
 
-		var of =  Camera.main.ScreenToViewportPoint (Input.mousePosition);
-		var o = of.magnitude - start.magnitude;
-		o *= 20;
+		var curPosition = viewportCamera.ScreenToWorldPoint (mousePos) + offset;
+		var axisName = hit.collider.name;
+			if (axisName != "x" && axisName != "y" && axisName != "z") return;
+
 		var pos = new Vector3 ();
 
 		switch (axisName) {
 			case "x":
-				pos = startPosition + Vector3.right * o;
+			pos = new Vector3(curPosition.x, startPosition.y, startPosition.z);
 				break;
 			case "y":
-				pos = startPosition + Vector3.up * o;
+			pos = new Vector3(startPosition.x, curPosition.y, startPosition.z);
 				break;
 			case "z":
-				pos = startPosition + Vector3.forward * o;
+				pos = new Vector3(startPosition.x, startPosition.y, curPosition.z);
 				break;
 		}
 

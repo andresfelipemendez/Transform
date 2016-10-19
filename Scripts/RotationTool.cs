@@ -30,12 +30,14 @@ public class RotationTool : ModulationEditionTool
 
 	Collider hitCollider;
 
+	Vector2 start;
+
 	public RotationTool() {
 		_tog = new TurnOnGizmoCommand ();
 		_st = new SetTransformationCommand ();
 	}
 
-	public void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos) {
+	public void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos, Camera viewportCamera) {
 		var axisName = hit.collider.name;
 		if (axisName != "x" && axisName != "y" && axisName != "z") return;
 		switch (axisName) {
@@ -62,13 +64,16 @@ public class RotationTool : ModulationEditionTool
 
 		hitCollider = target.GetComponent<BoxCollider> ();
 		hitCollider.enabled = false;
+		start = mousePos;
 	}
 
-	public void UpdateTransformation (GameObject target, RaycastHit hit, Vector2 mousePosition)
+	public void UpdateTransformation (GameObject target, RaycastHit hit, Vector2 mousePosition, Camera viweportCamera)
 	{
-		var rotation = Quaternion.FromToRotation (_direction, hit.point - target.transform.position).eulerAngles;
-		rotation.Scale (_rotationDirection);
-		var angle = rotation.x + rotation.y + rotation.z;
+		var current = mousePosition;
+		var angle = current.magnitude - start.magnitude;
+//		var rotation = Quaternion.FromToRotation (_direction, hit.point - target.transform.position).eulerAngles;
+//		rotation.Scale (_rotationDirection);
+//		var angle = rotation.x + rotation.y + rotation.z;
 		target.transform.rotation = Quaternion.Euler (_originalRotation + angle * _rotationDirection);
 		return;
 	}

@@ -95,7 +95,7 @@ public class TranformationManager : MonoBehaviour
 			
 			if (Physics.Raycast (ray, out hit, 100)) 
 			{
-				var command = HandleInput (hit,Input.mousePosition);
+				var command = HandleInput (hit,Input.mousePosition,Camera.main);
 				if(command != null)
 				{
 					_hit = hit;
@@ -105,9 +105,9 @@ public class TranformationManager : MonoBehaviour
 			}
 		}
 	}
-	public void ClickUpdate (RaycastHit hit, Vector2 mousePosition)
+	public void ClickUpdate (RaycastHit hit, Vector2 mousePosition, Camera viewportCamera)
 	{
-		var command = HandleInput (hit, mousePosition);
+		var command = HandleInput (hit, mousePosition, viewportCamera);
 		if(command != null)
 		{
 			_hit = hit;
@@ -116,7 +116,7 @@ public class TranformationManager : MonoBehaviour
 		}
 
 	}
-	EditModulationCommand HandleInput(RaycastHit hit, Vector2 mousePosition)
+	EditModulationCommand HandleInput(RaycastHit hit, Vector2 mousePosition, Camera viewportCamera)
 	{
 		EditModulationCommand command = null;
 
@@ -136,10 +136,10 @@ public class TranformationManager : MonoBehaviour
 		case State.SET_TRANSFORMATION:
 			if (Input.GetMouseButtonDown (0)){
 				command = _setTarget;
-				_activeTool.DisableInactiveAxis (Target, hit, mousePosition);
+				_activeTool.DisableInactiveAxis (Target, hit, mousePosition, viewportCamera);
 			}
 			if (Input.GetMouseButton (0))
-				_activeTool.UpdateTransformation (Target, hit,mousePosition);
+				_activeTool.UpdateTransformation (Target, hit,mousePosition, viewportCamera);
 			if(Input.GetMouseButtonUp (0)) {
 				_activeTool.EnableAllAxis ();
 			}
