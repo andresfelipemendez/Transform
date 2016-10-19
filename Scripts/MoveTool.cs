@@ -53,8 +53,7 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit, Vector2 mousePos,Camera viewportCamera) {
-
-//		var p = Camera
+		
 		if(isSnapping) {
 			UpdateSnaps(hit);
 			return;
@@ -65,13 +64,12 @@ public class MoveTool : ModulationEditionTool
 			if (axisName != "x" && axisName != "y" && axisName != "z") return;
 
 		var pos = new Vector3 ();
-
 		switch (axisName) {
 			case "x":
-			pos = new Vector3(curPosition.x, startPosition.y, startPosition.z);
+				pos = new Vector3(curPosition.x, startPosition.y, startPosition.z);
 				break;
 			case "y":
-			pos = new Vector3(startPosition.x, curPosition.y, startPosition.z);
+				pos = new Vector3(startPosition.x, curPosition.y, startPosition.z);
 				break;
 			case "z":
 				pos = new Vector3(startPosition.x, startPosition.y, curPosition.z);
@@ -83,12 +81,18 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	void Snap(GameObject target, RaycastHit hit) {
-		Debug.Log (target + " " + hit);
 
 		foreach(Transform sibling in Gizmo.transform) {
 			if(sibling.name != "Snaps")
 				sibling.gameObject.SetActive (false);
 		}
+
+		foreach(Transform sibling in Gizmo.transform.FindChild ("Snaps")) {
+			if(sibling.name != hit.collider.name)
+				sibling.gameObject.SetActive (false);
+		}
+
+		Gizmo.transform.FindChild ("Snaps").FindChild ("target").gameObject.SetActive (true);
 
 		return;
 	}
@@ -96,11 +100,11 @@ public class MoveTool : ModulationEditionTool
 	void UpdateSnaps(RaycastHit hit)
 	{
 	 	Debug.DrawLine (startPosition, hit.point);
-	 	Debug.Log (hit.collider.GetType ().ToString ());
-		if (hit.collider.GetType ().ToString () == "UnityEngine.BoxCollider")
+		if (hit.collider.GetType ().ToString () == "UnityEngine.SphereCollider")
 		{
-			Gizmo.transform.FindChild ("Snaps").FindChild ("target").position = hit.collider.transform.position;
-			snapEnd = hit.collider.transform.position;
+			var collider = hit.collider as SphereCollider;
+			Gizmo.transform.FindChild ("Snaps").FindChild ("target").position = collider.center;
+			snapEnd = collider.center + hit.transform.position;
 		}
 	}
 
@@ -118,8 +122,14 @@ public class MoveTool : ModulationEditionTool
 			Gizmo.transform.position = snapEnd;
 			isSnapping = false;
 		}
+		foreach(Transform sibling in Gizmo.transform.FindChild ("Snaps")) {
+			sibling.gameObject.SetActive (true);
+//			if(sibling.name != hit.collider.name && sibling.name != "target")
 
-	}
+		}
+
+		Gizmo.transform.FindChild ("Snaps").FindChild ("target").gameObject.SetActive (false);
+	}	
 
 
 	class TurnOnGizmoCommand : EditModulationCommand
@@ -130,7 +140,16 @@ public class MoveTool : ModulationEditionTool
 			tool.Gizmo.transform.position = hit.transform.position;
 			manager.state = TranformationManager.State.SET_TRANSFORMATION;
 
+			var snaps = tool.Gizmo.transform.FindChild ("Snaps");
+
 			var comp = hit.transform.gameObject.GetComponent<WallPanelInfo> ();
+			var p = hit.transform.position;
+			var p1 = p + comp.height * hit.transform.up;
+			var p2 = p + -comp.width * hit.transform.right;
+			var p3 = p + -comp.width * hit.transform.right + comp.height * hit.transform.up;
+			snaps.FindChild ("2").transform.position = p1;
+			snaps.FindChild ("3").transform.position = p2;
+			snaps.FindChild ("4").transform.position = p3;
 		}
 
 		public void Undo(ModulationEditionTool tool) {

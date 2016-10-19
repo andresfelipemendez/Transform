@@ -224,7 +224,23 @@ public class CustomReport : MonoBehaviour
 			var panelMeshRenderer = panelGO.GetComponent<MeshRenderer>();
 			var panelBoxCollider = panelGO.GetComponent<BoxCollider>();
 			panelBoxCollider.center = new Vector3(panel.width / -2.0f, panel.height / 2.0f, 0.025f);
-			panelBoxCollider.size = new Vector3(panel.width, panel.height, 0.05f);
+			panelBoxCollider.size = new Vector3(panel.width, panel.height, 0.01f);
+
+			var radius = 0.03f;
+			var cornerCollider1 = panelGO.AddComponent<SphereCollider>();
+			var cornerCollider2 = panelGO.AddComponent<SphereCollider>();
+			var cornerCollider3 = panelGO.AddComponent<SphereCollider>();
+			var cornerCollider4 = panelGO.AddComponent<SphereCollider>();
+
+			cornerCollider1.radius = radius;
+			cornerCollider2.radius = radius;
+			cornerCollider3.radius = radius;
+			cornerCollider4.radius = radius;
+
+			cornerCollider2.center = panel.height * panelGO.transform.up;
+			cornerCollider3.center = -panel.width * panelGO.transform.right;
+			cornerCollider4.center = panel.height * panelGO.transform.up + -panel.width * panelGO.transform.right;
+
 			var info = panelGO.GetComponent<WallPanelInfo>();
 			info.id = cornerback.Key;
 			info.width = width;
