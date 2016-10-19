@@ -14,17 +14,20 @@ public class MoveTool : ModulationEditionTool
 	Collider hitCollider;
 	Vector3 start;
 	Vector3 startPosition;
+	Vector3 snapEnd;
+	bool isSnapping;
 
 	public MoveTool() {
 		_tog = new TurnOnGizmoCommand ();
 		_st = new SetTransformationCommand ();
 	}
 
-	public void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos) {
-		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
+	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
+		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps"){
+			isSnapping = true;
 			Snap (target, hit);
-//			Debug.Log ("movetool " + hit.transform.parent.name);
-  
+		}
+
 		var axis = hit.transform.gameObject;
 		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
 
@@ -40,21 +43,22 @@ public class MoveTool : ModulationEditionTool
 		hitCollider = target.GetComponent<BoxCollider> ();
 		hitCollider.enabled = false;
 
-		start = mousePos;
+		start = Camera.main.ScreenToViewportPoint (Input.mousePosition);
 		startPosition = target.transform.position;
+		Target = target;
 	}
 
-	public void UpdateTransformation(GameObject target, RaycastHit hit, Vector2 mousePosition) {
-		Debug.Log ("hit.point: "+hit.point.ToString ());
-		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
-			UpdateSnaps(target, hit);
-		
+	public void UpdateTransformation(GameObject target, RaycastHit hit) {
+		if(isSnapping){
+			UpdateSnaps(hit);
+			return;
+		}
 		var axisName = hit.collider.name;
 		if (axisName != "x" && axisName != "y" && axisName != "z") return;
 
-		var of =  mousePosition;
+		var of =  Camera.main.ScreenToViewportPoint (Input.mousePosition);
 		var o = of.magnitude - start.magnitude;
-		o *= 0.01f;
+		o *= 20;
 		var pos = new Vector3 ();
 
 		switch (axisName) {
@@ -84,9 +88,15 @@ public class MoveTool : ModulationEditionTool
 		return;
 	}
 
-	void UpdateSnaps(GameObject target, RaycastHit hit)
+	void UpdateSnaps(RaycastHit hit)
 	{
 	 	Debug.DrawLine (startPosition, hit.point);
+	 	Debug.Log (hit.collider.GetType ().ToString ());
+		if (hit.collider.GetType ().ToString () == "UnityEngine.BoxCollider")
+		{
+			Gizmo.transform.FindChild ("Snaps").FindChild ("target").position = hit.collider.transform.position;
+			snapEnd = hit.collider.transform.position;
+		}
 	}
 
 
@@ -98,6 +108,12 @@ public class MoveTool : ModulationEditionTool
 		if(_axisPlane != null) _axisPlane.enabled = false;
 		if(hitCollider != null)
 			hitCollider.enabled = true;
+		if(isSnapping){
+			Target.transform.position = snapEnd;
+			Gizmo.transform.position = snapEnd;
+			isSnapping = false;
+		}
+
 	}
 
 
