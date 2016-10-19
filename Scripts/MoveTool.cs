@@ -20,7 +20,7 @@ public class MoveTool : ModulationEditionTool
 		_st = new SetTransformationCommand ();
 	}
 
-	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
+	public void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos) {
 		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
 			Snap (target, hit);
 //			Debug.Log ("movetool " + hit.transform.parent.name);
@@ -40,20 +40,21 @@ public class MoveTool : ModulationEditionTool
 		hitCollider = target.GetComponent<BoxCollider> ();
 		hitCollider.enabled = false;
 
-		start = Camera.main.ScreenToViewportPoint (Input.mousePosition);
+		start = mousePos;
 		startPosition = target.transform.position;
 	}
 
-	public void UpdateTransformation(GameObject target, RaycastHit hit) {
+	public void UpdateTransformation(GameObject target, RaycastHit hit, Vector2 mousePosition) {
+		Debug.Log ("hit.point: "+hit.point.ToString ());
 		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
 			UpdateSnaps(target, hit);
 		
 		var axisName = hit.collider.name;
 		if (axisName != "x" && axisName != "y" && axisName != "z") return;
 
-		var of =  Camera.main.ScreenToViewportPoint (Input.mousePosition);
+		var of =  mousePosition;
 		var o = of.magnitude - start.magnitude;
-		o *= 20;
+		o *= 0.01f;
 		var pos = new Vector3 ();
 
 		switch (axisName) {

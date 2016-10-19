@@ -14,7 +14,7 @@ public class TranformationManager : MonoBehaviour
 	EditModulationCommand _deleteModulationItem;
 	EditModulationCommand _command;
 	RaycastHit _hit;
-
+	public bool testing;
 	public State state;
 	public Vector3 TargetPosition;
 	public Quaternion TargetRotation;
@@ -34,6 +34,7 @@ public class TranformationManager : MonoBehaviour
 		SetGizmos ();
 		_setTarget = new SetTargetCommand (this, selectedMaterial);
 		_deleteModulationItem = new DeleteModulationItem (this);
+		EventsManager.ItemTransformation += ClickUpdate;
 	}
 
 	void SetGizmos()
@@ -48,26 +49,32 @@ public class TranformationManager : MonoBehaviour
 		_inactiveTool = _rotateTool;
 	}
 
-	public void MoveMode()
+	public void MoveMode ()
 	{
-		if(Target != null)
+		if (Target != null)
 			_activeTool.TurnOnGizmo.Undo (_activeTool);
 		_activeTool = _moveTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
-		PanelInsertItem.SetActive (false);
+		//if (testing) {
+			PanelInsertItem.SetActive (false);
+		//}
 	}
 
-	public void RotateMode()
+	public void RotateMode ()
 	{
 		_activeTool.Gizmo.SetActive (false);
 		_activeTool = _rotateTool;
 		_activeTool.TurnOnGizmo.Execute (this, _activeTool, _hit);
-		PanelInsertItem.SetActive (false);
+		//if (testing) {
+			PanelInsertItem.SetActive (false);
+		//}
 	}
 
 	public void InsertMode()
 	{
-		PanelInsertItem.SetActive (true);
+	//	if(testing){
+			PanelInsertItem.SetActive (true);
+	//	}
 		_moveTool.Gizmo.SetActive (false);
 		_rotateTool.Gizmo.SetActive (false);
 		state = State.INSERT_ITEM;
@@ -82,22 +89,34 @@ public class TranformationManager : MonoBehaviour
 	void Update ()
 	{
 		
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		RaycastHit hit;
-
-		if (Physics.Raycast (ray, out hit, 100)) 
-		{
-			var command = HandleInput (hit);
-			if(command != null)
+		if(testing){
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			
+			if (Physics.Raycast (ray, out hit, 100)) 
 			{
-				_hit = hit;
-				_command = command;
-				command.Execute (this, _activeTool, hit);
+				var command = HandleInput (hit,Input.mousePosition);
+				if(command != null)
+				{
+					_hit = hit;
+					_command = command;
+					command.Execute (this, _activeTool, hit);
+				}
 			}
 		}
 	}
+	public void ClickUpdate (RaycastHit hit, Vector2 mousePosition)
+	{
+		var command = HandleInput (hit, mousePosition);
+		if(command != null)
+		{
+			_hit = hit;
+			_command = command;
+			command.Execute (this, _activeTool, hit);
+		}
 
-	EditModulationCommand HandleInput(RaycastHit hit)
+	}
+	EditModulationCommand HandleInput(RaycastHit hit, Vector2 mousePosition)
 	{
 		EditModulationCommand command = null;
 
@@ -117,10 +136,10 @@ public class TranformationManager : MonoBehaviour
 		case State.SET_TRANSFORMATION:
 			if (Input.GetMouseButtonDown (0)){
 				command = _setTarget;
-				_activeTool.DisableInactiveAxis (Target, hit);
+				_activeTool.DisableInactiveAxis (Target, hit, mousePosition);
 			}
 			if (Input.GetMouseButton (0))
-				_activeTool.UpdateTransformation (Target, hit);
+				_activeTool.UpdateTransformation (Target, hit,mousePosition);
 			if(Input.GetMouseButtonUp (0)) {
 				_activeTool.EnableAllAxis ();
 			}

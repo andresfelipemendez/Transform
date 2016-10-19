@@ -8,6 +8,7 @@ public class InsertModulationItems : MonoBehaviour {
 	public TranformationManager tm;
 
 	public GameObject ItemsListPrefab;
+	public Transform	parentTransform;
 	public GameObject Item;
 	public GameObject content;
 	public Material panelMat;
@@ -26,7 +27,10 @@ public class InsertModulationItems : MonoBehaviour {
 			button.onClick.AddListener (() => {setFormwork (btn.name);});
 		}
 	}
-
+	public void OnEnable ()
+	{
+		Start ();
+	}
 	public void setFormwork(string id) {
 		Debug.Log (id);
 		panelId = id;

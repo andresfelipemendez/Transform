@@ -130,10 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960ecb8e635924969a84ab1261e3bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPanelsMaterial: {fileID: 2100000, guid: 9478fc752b13e4080a6ee2d6035716d9, type: 2}
-  conersMaterial: {fileID: 2100000, guid: 3f70b116d651546838749d6b30440a1c, type: 2}
-  noLimit: {fileID: 2100000, guid: 69bf35bc3658840c3b02966803e97864, type: 2}
-  topLimit: {fileID: 2100000, guid: 70d4e57629cad4552808357dd0e1635b, type: 2}
+  wallPanelsMaterial: {fileID: 2100000, guid: e02b4e55758a94a54b856d1ea0090884, type: 2}
+  conersMaterial: {fileID: 2100000, guid: 609278d3672384e96a91d17a4425203a, type: 2}
+  noLimit: {fileID: 2100000, guid: f6a20e417c0eb4fb6a234d501550e1ca, type: 2}
+  topLimit: {fileID: 2100000, guid: a55d466c687ab4ccc8c673ea5c35004d, type: 2}
 --- !u!1001 &680003187
 Prefab:
   m_ObjectHideFlags: 0
