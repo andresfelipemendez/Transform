@@ -25,6 +25,7 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	public void DisableInactiveAxis (GameObject target, RaycastHit hit, Vector2 mousePos,Camera viewportCamera) {
+		Target = target;
 		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps") {
 			isSnapping = true;
 			Snap (target, hit);
@@ -47,7 +48,7 @@ public class MoveTool : ModulationEditionTool
 
 		start = mousePos;
 		startPosition = target.transform.position;
-		Target = target;
+
 		offset = target.transform.position - viewportCamera.ScreenToWorldPoint (mousePos);
 	}
 
