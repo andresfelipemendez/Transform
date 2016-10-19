@@ -14,6 +14,8 @@ public class MoveTool : ModulationEditionTool
 	Collider hitCollider;
 	Vector3 start;
 	Vector3 startPosition;
+	Vector3 snapEnd;
+	bool isSnapping;
 
 	public MoveTool() {
 		_tog = new TurnOnGizmoCommand ();
@@ -21,10 +23,11 @@ public class MoveTool : ModulationEditionTool
 	}
 
 	public void DisableInactiveAxis (GameObject target, RaycastHit hit) {
-		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
+		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps"){
+			isSnapping = true;
 			Snap (target, hit);
-//			Debug.Log ("movetool " + hit.transform.parent.name);
-  
+		}
+
 		var axis = hit.transform.gameObject;
 		if (axis.name != "x" && axis.name != "y" && axis.name != "z") return;
 
@@ -42,12 +45,14 @@ public class MoveTool : ModulationEditionTool
 
 		start = Camera.main.ScreenToViewportPoint (Input.mousePosition);
 		startPosition = target.transform.position;
+		Target = target;
 	}
 
 	public void UpdateTransformation(GameObject target, RaycastHit hit) {
-		if (hit.transform.parent != null && hit.transform.parent.name == "Snaps")
-			UpdateSnaps(target, hit);
-		
+		if(isSnapping){
+			UpdateSnaps(hit);
+			return;
+		}
 		var axisName = hit.collider.name;
 		if (axisName != "x" && axisName != "y" && axisName != "z") return;
 
@@ -83,9 +88,15 @@ public class MoveTool : ModulationEditionTool
 		return;
 	}
 
-	void UpdateSnaps(GameObject target, RaycastHit hit)
+	void UpdateSnaps(RaycastHit hit)
 	{
 	 	Debug.DrawLine (startPosition, hit.point);
+	 	Debug.Log (hit.collider.GetType ().ToString ());
+		if (hit.collider.GetType ().ToString () == "UnityEngine.BoxCollider")
+		{
+			Gizmo.transform.FindChild ("Snaps").FindChild ("target").position = hit.collider.transform.position;
+			snapEnd = hit.collider.transform.position;
+		}
 	}
 
 
@@ -97,6 +108,12 @@ public class MoveTool : ModulationEditionTool
 		if(_axisPlane != null) _axisPlane.enabled = false;
 		if(hitCollider != null)
 			hitCollider.enabled = true;
+		if(isSnapping){
+			Target.transform.position = snapEnd;
+			Gizmo.transform.position = snapEnd;
+			isSnapping = false;
+		}
+
 	}
 
 
